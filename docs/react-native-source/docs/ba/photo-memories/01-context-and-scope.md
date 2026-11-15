@@ -11,11 +11,11 @@ Người chụp có hai nhu cầu độc lập: chia sẻ cuộc sống với b�
 | Bằng chứng | Điều quan sát được | Ý nghĩa cho tính năng ảnh |
 | --- | --- | --- |
 | [README](../../../README.md) | Bản chạy một thiết bị; chưa backend, login, mời liên thiết bị | Phải xây nền online trước khi có chia sẻ thật |
-| [package.json](../../../package.json) | React Native 0.79, React 19; có Vision Camera và image picker trong dependencies | Có package không đồng nghĩa camera đã tích hợp hoặc hoạt động |
-| [AppNavigator](../../../src/navigators/AppNavigator.tsx), [route](../../../src/configs/navigation.ts) | Hai route danh sách và chi tiết phòng | Chưa có route camera, feed ảnh, album hoặc DM |
-| [types](../../../src/modules/keo/types/index.ts) | `Phase = ideas / vote / order / plan`, `host / member` | Chưa có trạng thái server ENDED hoặc album |
-| [roomStorage](../../../src/modules/keo/utils/roomStorage.ts) | `members: string[]`, `currentUserIndex`, code local, schema v1 | Không dùng tên hoặc chỉ số mảng làm danh tính online |
-| [KeoProvider](../../../src/modules/keo/store/KeoProvider.tsx) | MMKV `let-play-rooms`, key `rooms.v1`; xóa/lưu trữ là thao tác local | Không ánh xạ thao tác local này thành xóa/lưu trữ chung trên server |
+| [package.json](../../../../../../let_play/package.json) | React Native 0.79, React 19; có Vision Camera và image picker trong dependencies | Có package không đồng nghĩa camera đã tích hợp hoặc hoạt động |
+| [AppNavigator](../../../../../../let_play/src/navigators/AppNavigator.tsx), [route](../../../../../../let_play/src/configs/navigation.ts) | Hai route danh sách và chi tiết phòng | Chưa có route camera, feed ảnh, album hoặc DM |
+| [types](../../../../../../let_play/src/modules/keo/types/index.ts) | `Phase = ideas / vote / order / plan`, `host / member` | Chưa có trạng thái server ENDED hoặc album |
+| [roomStorage](../../../../../../let_play/src/modules/keo/utils/roomStorage.ts) | `members: string[]`, `currentUserIndex`, code local, schema v1 | Không dùng tên hoặc chỉ số mảng làm danh tính online |
+| [KeoProvider](../../../../../../let_play/src/modules/keo/store/KeoProvider.tsx) | MMKV `let-play-rooms`, key `rooms.v1`; xóa/lưu trữ là thao tác local | Không ánh xạ thao tác local này thành xóa/lưu trữ chung trên server |
 | [BA cũ](../../../context/BA.md) | Album và chat từng nằm ngoài bản đầu; có đề xuất phòng khách và lưu 90 ngày | Yêu cầu ảnh mới thay đổi phạm vi; auth và retention phải quyết định lại |
 
 Tính năng ghi sổ tiền không thực hiện chuyển tiền. Tên thành viên được nhập sẵn không đại diện tài khoản đã chấp nhận lời mời. Cần giữ dữ liệu local cũ đọc được; không tự gán tài khoản online cho những tên này khi migration.
@@ -44,13 +44,13 @@ Không kết luận Locket hiện không có nhóm, bình luận, hoặc những
 
 | Tệp | Quan sát trực tiếp | Học cho Kèo | Chưa được ảnh chứng minh |
 | --- | --- | --- | --- |
-| [home-screen.png](../../../context/locket-images/home-screen.png) | Preview camera lớn, flash, đổi camera, nút chụp, lối vào lịch sử, bạn bè và chat | Chụp nhanh, mở lịch sử thuận tiện | Quyền camera, nơi đăng mặc định, xử lý upload |
-| [Scroll-Infinity.png](../../../context/locket-images/Scroll-Infinity.png) | Xem một ảnh, tác giả, thời gian, caption, bộ lọc bạn bè, emoji và ô gửi tin | Giữ ngữ cảnh ảnh khi tương tác | Reaction công khai hay riêng, cơ chế phân trang |
-| [Grid-Scroll-Infinity.png](../../../context/locket-images/Grid-Scroll-Infinity.png) | Lưới nhiều ảnh và bộ lọc | Album có chế độ lưới và mở xem chi tiết | Thuật toán sắp xếp và quyền truy cập |
-| [my-time-screen.png](../../../context/locket-images/my-time-screen.png) | Màn Kỷ niệm gom theo tháng, nhiều thumbnail, chỉ số chuỗi | Lịch sử có thể xem theo tháng | Cách tính chuỗi và điều kiện ảnh được đưa vào |
-| [reply-friend.png](../../../context/locket-images/reply-friend.png) | Overlay “Replying to”, ô trả lời tên người và bàn phím | Nhãn Trả lời riêng cho tên tác giả cần rõ | Ai khác đọc được câu trả lời |
-| [message-screen.png](../../../context/locket-images/message-screen.png) | Danh sách hội thoại, preview tin và chỉ dấu chưa đọc | Có inbox và badge đồng nhất | Quy tắc xóa, retention, block |
-| [detail-message-screen.png](../../../context/locket-images/detail-message-screen.png) | Hội thoại hai người chứa ảnh và các đoạn văn bản | Tin nhắn có tham chiếu ảnh gốc | Ảnh được copy hay tham chiếu, thu hồi quyền |
+| [home-screen.png](../../../../../../let_play/context/locket-images/home-screen.png) | Preview camera lớn, flash, đổi camera, nút chụp, lối vào lịch sử, bạn bè và chat | Chụp nhanh, mở lịch sử thuận tiện | Quyền camera, nơi đăng mặc định, xử lý upload |
+| [Scroll-Infinity.png](../../../../../../let_play/context/locket-images/Scroll-Infinity.png) | Xem một ảnh, tác giả, thời gian, caption, bộ lọc bạn bè, emoji và ô gửi tin | Giữ ngữ cảnh ảnh khi tương tác | Reaction công khai hay riêng, cơ chế phân trang |
+| [Grid-Scroll-Infinity.png](../../../../../../let_play/context/locket-images/Grid-Scroll-Infinity.png) | Lưới nhiều ảnh và bộ lọc | Album có chế độ lưới và mở xem chi tiết | Thuật toán sắp xếp và quyền truy cập |
+| [my-time-screen.png](../../../../../../let_play/context/locket-images/my-time-screen.png) | Màn Kỷ niệm gom theo tháng, nhiều thumbnail, chỉ số chuỗi | Lịch sử có thể xem theo tháng | Cách tính chuỗi và điều kiện ảnh được đưa vào |
+| [reply-friend.png](../../../../../../let_play/context/locket-images/reply-friend.png) | Overlay “Replying to”, ô trả lời tên người và bàn phím | Nhãn Trả lời riêng cho tên tác giả cần rõ | Ai khác đọc được câu trả lời |
+| [message-screen.png](../../../../../../let_play/context/locket-images/message-screen.png) | Danh sách hội thoại, preview tin và chỉ dấu chưa đọc | Có inbox và badge đồng nhất | Quy tắc xóa, retention, block |
+| [detail-message-screen.png](../../../../../../let_play/context/locket-images/detail-message-screen.png) | Hội thoại hai người chứa ảnh và các đoạn văn bản | Tin nhắn có tham chiếu ảnh gốc | Ảnh được copy hay tham chiếu, thu hồi quyền |
 
 Các quy tắc còn thiếu ở cột cuối là thiết kế **đề xuất của Kèo** trong các tài liệu tiếp theo, không phải kết quả suy đoán về backend Locket.
 

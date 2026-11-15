@@ -26,9 +26,9 @@ Hilt is applied to the Android application. The pure JVM classes are constructed
 
 | File | Provides |
 | --- | --- |
-| [AppModule](../app/src/main/java/com/example/base/di/AppModule.kt) | Dispatcher provider, logger, application coroutine scope, session adapter/contract |
-| [DataModule](../app/src/main/java/com/example/base/di/DataModule.kt) | AppConfig, Gson, error parser/mapper, environment-configured Retrofit service, data source, repository implementations |
-| [DomainModule](../app/src/main/java/com/example/base/di/DomainModule.kt) | Observe/add/toggle Todo and paged Users use cases |
+| [AppModule](../app/src/main/java/com/uzuu/letplay/di/AppModule.kt) | Dispatcher provider, logger, application coroutine scope, session adapter/contract |
+| [DataModule](../app/src/main/java/com/uzuu/letplay/di/DataModule.kt) | AppConfig, Gson, error parser/mapper, environment-configured Retrofit service, data source, repository implementations |
+| [DomainModule](../app/src/main/java/com/uzuu/letplay/di/DomainModule.kt) | Observe/add/toggle Todo and paged Users use cases |
 
 `MainApplication` is annotated with `@HiltAndroidApp`; `MainActivity` uses `@AndroidEntryPoint`.
 Each navigation destination obtains its `@HiltViewModel` through `hiltViewModel()`.
@@ -40,16 +40,16 @@ The build defines an `environment` flavor dimension with two flavors and two bui
 
 | Variant | Dimension / Flavor | Suffix | Application ID | Target Environment |
 | --- | --- | --- | --- | --- |
-| `devDebug` | `dev` | `.dev.debug` | `com.example.base.dev.debug` | Local development (`dev`) |
-| `devRelease` | `dev` | `.dev` | `com.example.base.dev` | Staging / testing release (`dev`) |
-| `prodDebug` | `prod` | `.debug` | `com.example.base.debug` | Production diagnostics (`prod`) |
-| `prodRelease` | `prod` | (none) | `com.example.base` | Production release artifact (`prod`) |
+| `devDebug` | `dev` | `.dev.debug` | `com.uzuu.letplay.dev.debug` | Local development (`dev`) |
+| `devRelease` | `dev` | `.dev` | `com.uzuu.letplay.dev` | Staging / testing release (`dev`) |
+| `prodDebug` | `prod` | `.debug` | `com.uzuu.letplay.debug` | Production diagnostics (`prod`) |
+| `prodRelease` | `prod` | (none) | `com.uzuu.letplay` | Production release artifact (`prod`) |
 
 `AppConfig` (`app/config/AppConfig.kt`) encapsulates the active `AppEnvironment` (`DEV` or `PROD`) and validates the API base URL (requiring valid HTTP/HTTPS scheme and trailing slash). It is read from Gradle `BuildConfig` and injected via Hilt into Retrofit in `DataModule`, preventing hardcoded network endpoints.
 
 ## Use case contracts
 
-All base implementations live in [domain/usecase/base](../domain/src/main/java/com/example/base/domain/usecase/base). All input/output contracts derive from `BaseInput` and `BaseOutput`:
+All base implementations live in [domain/usecase/base](../domain/src/main/java/com/uzuu/letplay/domain/usecase/base). All input/output contracts derive from `BaseInput` and `BaseOutput`:
 
 | Type | Contract Parameters | `execute` returns | Public call returns |
 | --- | --- | --- | --- |
@@ -74,13 +74,13 @@ during collection as well.
 
 ## Repository contracts
 
-Interfaces live in [domain/repository](../domain/src/main/java/com/example/base/domain/repository).
-Implementations live in [data/repository](../data/src/main/java/com/example/base/data/repository).
+Interfaces live in [domain/repository](../domain/src/main/java/com/uzuu/letplay/domain/repository).
+Implementations live in [data/repository](../data/src/main/java/com/uzuu/letplay/data/repository).
 
 - Repository methods return domain models, not DTOs or Retrofit `Response` objects.
 - Technical failures are converted to the shared `Result.Failure` / `AppException` types.
 - Use cases can call `getOrThrow()` to compose results; existing application exceptions keep their identity.
-- DTO conversion is implemented in [data/mapper](../data/src/main/java/com/example/base/data/mapper).
+- DTO conversion is implemented in [data/mapper](../data/src/main/java/com/uzuu/letplay/data/mapper).
 
 ### Observable Todo data
 
@@ -98,7 +98,7 @@ write results. A failed observation can be retried without repeating a committed
 
 ### Paged Users data
 
-[JsonPlaceholderService](../data/src/main/java/com/example/base/data/api/JsonPlaceholderApi.kt) describes
+[JsonPlaceholderService](../data/src/main/java/com/uzuu/letplay/data/api/JsonPlaceholderApi.kt) describes
 the public `/users` endpoint. The repository checks the response body, maps DTOs, and creates a `PageResult`.
 The sample's `hasNext` heuristic is `items.size == pageSize`; it can make one final request that returns no items.
 Use backend pagination metadata when your API provides it.
@@ -111,7 +111,7 @@ and define refresh concurrency and replay semantics for that backend explicitly.
 Screens observe StateFlow with `collectAsStateWithLifecycle()`.
 ViewModels expose the current state and handle user actions through functions.
 
-[TodoViewModel](../app/src/main/java/com/example/base/ui/todo/TodoViewModel.kt) stores its draft in
+[TodoViewModel](../app/src/main/java/com/uzuu/letplay/ui/todo/TodoViewModel.kt) stores its draft in
 `SavedStateHandle`. The draft is preserved with the ViewModel across rotation and participates in Android's
 saved-state restoration. It is not a replacement for durable storage of user documents.
 
@@ -128,11 +128,11 @@ The toolkit separates execution coordination from ViewModel inheritance:
   - `sequential(scope, action)`: serializes task execution in strict FIFO order with configurable buffer overflow strategy.
   - `debounceWithLatest(timeout, policy)`: debounces user inputs and applies latest-result semantics, supporting immediate task cancellation upon new keystrokes (`IMMEDIATE_ON_NEW_EMISSION`) or deferred cancellation (`AFTER_DEBOUNCE_TIMEOUT`).
 
-[BaseViewModel](../app/src/main/java/com/example/base/ui/base/BaseViewModel.kt) provides convenience wrappers around `ActionRunner` and `LoadingManager`:
+[BaseViewModel](../app/src/main/java/com/uzuu/letplay/ui/base/BaseViewModel.kt) provides convenience wrappers around `ActionRunner` and `LoadingManager`:
 - `loadingKeys`: a reference count per `LoadingKey`. Counts are decremented in `finally`, including cancellation.
 - `effects`: a StateFlow of pending `PendingUiEffect` items, each with an ID.
 
-[BaseScreen](../app/src/main/java/com/example/base/ui/base/BaseScreen.kt) displays initial/submit loading,
+[BaseScreen](../app/src/main/java/com/uzuu/letplay/ui/base/BaseScreen.kt) displays initial/submit loading,
 observes effects while STARTED, and acknowledges each effect after it is handled. Dialog dismissal also
 acknowledges the pending ID. Pagination uses screen state for its local indicator.
 
@@ -167,7 +167,7 @@ Do not opt a write into replay unless its behavior is safe to repeat under your 
 
 ## Session restoration
 
-[SessionManager](../domain/src/main/java/com/example/base/domain/session/SessionManager.kt) exposes one state:
+[SessionManager](../domain/src/main/java/com/uzuu/letplay/domain/session/SessionManager.kt) exposes one state:
 
 | State | Meaning | Root UI behavior |
 | --- | --- | --- |
@@ -175,7 +175,7 @@ Do not opt a write into replay unless its behavior is safe to repeat under your 
 | `Ready(session, isExpired)` | Consistent snapshot, including an anonymous session | Create/show app navigation |
 | `Error(cause)` | Reading failed or collection ended | Retry button |
 
-[DataStoreSessionManager](../app/src/main/java/com/example/base/session/DataStoreSessionManager.kt) collects
+[DataStoreSessionManager](../app/src/main/java/com/uzuu/letplay/session/DataStoreSessionManager.kt) collects
 preferences on the application scope. All fields of a session are published in one snapshot. Writes are
 serialized; their waits observe both matching Ready snapshots and Error snapshots.
 
@@ -191,8 +191,8 @@ Startup has no general task orchestrator: the root screen directly observes this
 
 ## Navigation
 
-[AppRoute](../app/src/main/java/com/example/base/navigation/AppRoute.kt) describes app destinations.
-[AppNavigatorImpl](../app/src/main/java/com/example/base/navigation/AppNavigatorImpl.kt) adapts them to NavController.
+[AppRoute](../app/src/main/java/com/uzuu/letplay/navigation/AppRoute.kt) describes app destinations.
+[AppNavigatorImpl](../app/src/main/java/com/uzuu/letplay/navigation/AppNavigatorImpl.kt) adapts them to NavController.
 Detail IDs are encoded with `Uri.encode` and read from navigation arguments, preserving spaces, plus signs,
 slashes, and Unicode. Observers receive the decoded argument values.
 

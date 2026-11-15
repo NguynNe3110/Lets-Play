@@ -1,6 +1,6 @@
 # Đối chiếu backend hiện tại với nghiệp vụ Kèo
 
-Ngày 10/11/2026. Nguồn là OpenAPI 3.1.0 do chủ sản phẩm dán trực tiếp trong hội thoại từ [Swagger backend](https://let-splay-be.onrender.com/swagger-ui/index.html#/). Bản trích bằng chứng tại [swagger-evidence-2026-11-10.json](swagger-evidence-2026-11-10.json) **không phải bản OpenAPI đầy đủ dùng generate client**. Nội dung dán lặp hai lần; báo cáo phân tích một bản.
+Ngày 10/11/2026. Nguồn là OpenAPI 3.1.0 do chủ sản phẩm dán trực tiếp trong hội thoại từ [Swagger backend](https://let-splay-be.onrender.com/swagger-ui/index.html#/). Bản trích bằng chứng tại [swagger-evidence-2026-11-10.json](../../integration/swagger-evidence-2026-11-10.json) **không phải bản OpenAPI đầy đủ dùng generate client**. Nội dung dán lặp hai lần; báo cáo phân tích một bản.
 
 **Kết luận:** backend đã mô tả được nền tạo/tham gia phòng, phiên khách, tài khoản, đề xuất, lịch rảnh, sổ chi, thanh toán và SSE. Tuy nhiên hợp đồng hiện tại chưa khớp toàn bộ BA đã bàn: phiếu đang là bật/tắt; chốt một đề xuất; chưa có bước thứ tự nhiều chặng; quyền host sửa/xóa ý của người khác rộng hơn BA; FINALIZED không mở lại; rời phòng xóa phiếu. Phần tiền có endpoint nhưng schema chưa đủ rõ để xác nhận các bất biến tài chính. Chưa thấy endpoint ảnh/album/cảm xúc/DM trong bản được cung cấp.
 
@@ -66,7 +66,7 @@ Phần có thể làm độc lập bằng mock là bố cục feed, skeleton, pr
 - upload/processing/publish, chọn PERSONAL/ROOM, audience snapshot;
 - receipt sau commit, retry timeout không tạo bài trùng và event invalidate feed/album.
 
-Do đó không nên kết luận các UI này “không liên quan backend”. Chỉ visual shell không liên quan; dữ liệu, quyền, phân trang và trạng thái đăng liên quan trực tiếp. Contract mục tiêu chi tiết tại [09-ui-feed-and-capture-composer.md](../ba/photo-memories/09-ui-feed-and-capture-composer.md) và các mục 3–7 của [05-api-contract.md](../ba/photo-memories/05-api-contract.md). Đây vẫn là gap/đề xuất cho backend ngoài repo, chưa phải route đã có.
+Do đó không nên kết luận các UI này “không liên quan backend”. Chỉ visual shell không liên quan; dữ liệu, quyền, phân trang và trạng thái đăng liên quan trực tiếp. Contract mục tiêu chi tiết tại [09-ui-feed-and-capture-composer.md](09-ui-feed-and-capture-composer.md) và các mục 3–7 của [05-api-contract.md](05-api-contract.md). Đây vẫn là gap/đề xuất cho backend ngoài repo, chưa phải route đã có.
 
 ## 5 Runtime cần kiểm khi truy cập được
 

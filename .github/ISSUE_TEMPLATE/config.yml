@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
   - name: Read the architecture guide
-    url: https://github.com/NguynNe3110/Kotlin-multi-module/blob/main/docs/architecture.md
+    url: https://github.com/NguynNe3110/Lets-Play/blob/main/docs/architecture.md
     about: Module boundaries, use case contracts, UI effects, and session behavior.

@@ -1,12 +1,12 @@
 # Contributing
 
-Thanks for helping improve Kotlin MVVM Base. Small, focused contributions make this starter easier to understand
-and reuse: a reproducible bug report, a fix with a regression test, or a clearer example all help.
+Contributions to LetsPlay should follow the [migration plan](docs/migration/README.md) and confirmed product rules.
+Keep changes focused and distinguish implemented Kotlin behavior from React Native reference documents.
 
 ## Before starting
 
 Read the [README](README.md) and [architecture guide](docs/architecture.md). Check existing
-[issues](https://github.com/NguynNe3110/Kotlin-multi-module/issues) before opening a new one.
+[issues](https://github.com/NguynNe3110/Lets-Play/issues) before opening a new one.
 For a larger change, describe the problem and proposed scope in an issue first.
 
 ## Development setup
@@ -30,7 +30,7 @@ On Windows, replace `./gradlew` with `.\gradlew.bat`.
 - Preserve cancellation. Do not map `CancellationException` into an application failure.
 - Make operation replay explicit. A failed network request does not automatically make a write safe to retry.
 - Preserve the repository's observable source-of-truth contract when adding persistence or network writes.
-- Explain new abstractions through an actual need in the examples.
+- Add abstractions when LetsPlay features need them; preserve existing infrastructure contracts.
 
 ## Validation
 
@@ -38,7 +38,7 @@ Run the checks relevant to your change. For application or architecture changes,
 
 ```bash
 ./gradlew verifyModuleBoundaries
-./gradlew :domain:test :data:test :shared:test :app:testDebugUnitTest
+./gradlew :domain:test :data:test :shared:test :app:testDevDebugUnitTest :app:testProdDebugUnitTest
 ./gradlew :app:assembleDebug :app:lintDebug
 ```
 

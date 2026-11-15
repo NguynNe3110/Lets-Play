@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application and Screen Titles -->
-    <string name="app_name">Base Kotlin MVVM</string>
+    <string name="app_name">Let’s Play</string>
     <string name="todo_title">Ứng dụng Todo - Kotlin Clean MVVM</string>
     <string name="users_title">Người dùng</string>
     <string name="search_users_title">Tìm kiếm người dùng</string>
     <string name="dialog_title_error">Lỗi</string>
     <string name="dialog_title_validation">Lỗi xác thực</string>
+
+    <!-- Navigation Tab Labels -->
+    <string name="tab_camera">Camera</string>
+    <string name="tab_rooms">Kèo</string>
+    <string name="tab_memories">Thời gian</string>
+    <string name="tab_messages">Tin nhắn</string>
+
+    <!-- Navigation & Common Labels -->
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_camera">Camera</string>
+    <string name="nav_rooms">Kèo</string>
+    <string name="nav_memories">Thời gian</string>
+    <string name="nav_messages">Tin nhắn</string>
+    <string name="online_rooms_title">Kèo online</string>
+    <string name="local_rooms_title">Kèo offline</string>
+    <string name="room_detail_title">Chi tiết kèo</string>
+    <string name="create_room">Tạo kèo</string>
+    <string name="join_room">Tham gia kèo</string>
+    <string name="settings_title">Cài đặt</string>
+    <string name="profile_title">Hồ sơ</string>
+    <string name="notifications_title">Thông báo</string>
+
+    <!-- Placeholder Descriptions -->
+    <string name="placeholder_camera_title">Camera</string>
+    <string name="placeholder_camera_desc">Chụp ảnh và chia sẻ khoảnh khắc với nhóm kèo.</string>
+    <string name="placeholder_rooms_title">Kèo</string>
+    <string name="placeholder_rooms_desc">Xem các kèo đang diễn ra và lên lịch cùng bạn bè.</string>
+    <string name="placeholder_memories_title">Thời gian</string>
+    <string name="placeholder_memories_desc">Dòng thời gian và ảnh kỷ niệm đã lưu.</string>
+    <string name="placeholder_messages_title">Tin nhắn</string>
+    <string name="placeholder_messages_desc">Tin nhắn trực tiếp và trò chuyện nhóm.</string>
+    <string name="placeholder_room_detail_desc">Mã kèo: %1$s</string>
 
     <!-- Buttons & Actions -->
     <string name="button_ok">Đồng ý</string>

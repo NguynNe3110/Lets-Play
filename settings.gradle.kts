@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "kotlin_mvvm_base"
+rootProject.name = "LetsPlay"
 
 // Layer-based multi-module application. Dependencies are declared in each module.
 include(":shared")

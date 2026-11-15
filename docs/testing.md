@@ -25,7 +25,7 @@ On Windows, replace `./gradlew` with `.\gradlew.bat`.
 For a targeted regression test:
 
 ```bash
-./gradlew :app:testDevDebugUnitTest --tests com.example.base.session.DataStoreSessionFailureTest
+./gradlew :app:testDevDebugUnitTest --tests com.uzuu.letplay.session.DataStoreSessionFailureTest
 ```
 
 Gradle can reuse UP-TO-DATE results. To deliberately re-execute the selected tasks and their prerequisites,
@@ -53,10 +53,10 @@ The project configures two product flavors (`dev`, `prod`) under dimension `envi
 
 | Variant | Environment | Application ID | Purpose |
 | --- | --- | --- | --- |
-| `devDebug` | dev | `com.example.base.dev.debug` | Daily local development with dev endpoints |
-| `devRelease` | dev | `com.example.base.dev` | Release behavior validation against dev environment |
-| `prodDebug` | prod | `com.example.base.debug` | Intentional diagnostic build targeting production endpoint |
-| `prodRelease` | prod | `com.example.base` | Production release artifact |
+| `devDebug` | dev | `com.uzuu.letplay.dev.debug` | Daily local development with dev endpoints |
+| `devRelease` | dev | `com.uzuu.letplay.dev` | Release behavior validation against dev environment |
+| `prodDebug` | prod | `com.uzuu.letplay.debug` | Intentional diagnostic build targeting production endpoint |
+| `prodRelease` | prod | `com.uzuu.letplay` | Production release artifact |
 
 Each flavor generates `BuildConfig.ENVIRONMENT` and `BuildConfig.API_BASE_URL` (configurable via `DEV_API_BASE_URL` and `PROD_API_BASE_URL` properties/environment variables, with public JSONPlaceholder default). `AppConfig` validates scheme and trailing slash at runtime.
 

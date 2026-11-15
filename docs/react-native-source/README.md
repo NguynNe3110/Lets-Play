@@ -41,7 +41,7 @@ Tài liệu nghiệp vụ dài hạn và mockup nằm trong `context/`; một s�
 
 Delta BA UI mới nhất về feed ảnh cuộn theo cursor và composer sau khi chụp nằm tại [09-ui-feed-and-capture-composer.md](docs/ba/photo-memories/09-ui-feed-and-capture-composer.md). Phần này phân biệt rõ layout có thể mock độc lập với pagination, ACL, upload và publish cần backend.
 
-Prototype riêng **giao diện điện thoại** nằm tại [prototypes/keo-full](prototypes/keo-full/README.md), mở `dist/index.html` để thử. Gói giao backend/AI được mô tả tại [hướng dẫn bàn giao](docs/integration/backend-ai-start.md), tạo lại bằng `node scripts/build-backend-handoff.cjs`. Prototype dùng dữ liệu giả local, không thay app mobile hoặc website đang deploy.
+Prototype riêng **giao diện điện thoại** nằm tại [prototypes/keo-full](../../../let_play/prototypes/keo-full/README.md), mở `dist/index.html` để thử. Gói giao backend/AI được mô tả tại [hướng dẫn bàn giao](docs/integration/backend-ai-start.md), tạo lại bằng `node scripts/build-backend-handoff.cjs`. Prototype dùng dữ liệu giả local, không thay app mobile hoặc website đang deploy.
 
 ## Cấu trúc
 

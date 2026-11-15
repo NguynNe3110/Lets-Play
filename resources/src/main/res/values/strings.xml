@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Application and Screen Titles -->
-    <string name="app_name">Base Kotlin MVVM</string>
+    <string name="app_name">Let’s Play</string>
     <string name="todo_title">Todo App - Kotlin Clean MVVM</string>
     <string name="users_title">Users</string>
     <string name="search_users_title">Search Users</string>
     <string name="dialog_title_error">Error</string>
     <string name="dialog_title_validation">Validation Error</string>
+
+    <!-- Navigation Tab Labels -->
+    <string name="tab_camera">Camera</string>
+    <string name="tab_rooms">Rooms</string>
+    <string name="tab_memories">Memories</string>
+    <string name="tab_messages">Messages</string>
+
+    <!-- Navigation & Common Labels -->
+    <string name="nav_home">Home</string>
+    <string name="nav_camera">Camera</string>
+    <string name="nav_rooms">Rooms</string>
+    <string name="nav_memories">Memories</string>
+    <string name="nav_messages">Messages</string>
+    <string name="online_rooms_title">Online Rooms</string>
+    <string name="local_rooms_title">Local Rooms</string>
+    <string name="room_detail_title">Room Detail</string>
+    <string name="create_room">Create Room</string>
+    <string name="join_room">Join Room</string>
+    <string name="settings_title">Settings</string>
+    <string name="profile_title">Profile</string>
+    <string name="notifications_title">Notifications</string>
+
+    <!-- Placeholder Descriptions -->
+    <string name="placeholder_camera_title">Camera</string>
+    <string name="placeholder_camera_desc">Capture photos and share moments with your room.</string>
+    <string name="placeholder_rooms_title">Rooms</string>
+    <string name="placeholder_rooms_desc">View active and scheduled plans with friends.</string>
+    <string name="placeholder_memories_title">Memories</string>
+    <string name="placeholder_memories_desc">Explore captured moments and timeline memories.</string>
+    <string name="placeholder_messages_title">Messages</string>
+    <string name="placeholder_messages_desc">Direct messages and room chat notifications.</string>
+    <string name="placeholder_room_detail_desc">Room ID: %1$s</string>
 
     <!-- Buttons & Actions -->
     <string name="button_ok">OK</string>

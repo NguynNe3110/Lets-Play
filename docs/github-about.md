@@ -2,52 +2,14 @@
 
 [Back to README](../README.md)
 
-Repository: [NguynNe3110/Kotlin-multi-module](https://github.com/NguynNe3110/Kotlin-multi-module)
+Repository: [NguynNe3110/Lets-Play](https://github.com/NguynNe3110/Lets-Play)
 
-## About description
-
-```text
-A Kotlin Android starter with MVVM, Clean Architecture, Jetpack Compose, Hilt, and five layer-based Gradle modules.
-```
-
-## Topics
+Suggested description:
 
 ```text
-android
-kotlin
-mvvm
-clean-architecture
-multi-module
-jetpack-compose
-hilt
-coroutines
-stateflow
-retrofit
-android-template
-boilerplate
+Let’s Play — an Android app for planning outings, shared expenses, and photo memories, being migrated from React Native to Kotlin and Jetpack Compose.
 ```
 
-These values can be applied with GitHub CLI by a repository admin:
+Suggested topics: `android`, `kotlin`, `jetpack-compose`, `hilt`, `mvvm`, `clean-architecture`, `multi-module`.
 
-```bash
-gh repo edit NguynNe3110/Kotlin-multi-module \
-  --description "A Kotlin Android starter with MVVM, Clean Architecture, Jetpack Compose, Hilt, and five layer-based Gradle modules." \
-  --add-topic android,kotlin,mvvm,clean-architecture,multi-module,jetpack-compose,hilt,coroutines,stateflow,retrofit,android-template,boilerplate
-```
-
-The command changes repository metadata; it does not upload local source files or documentation.
-
-## Social preview
-
-![GitHub social preview artwork](images/social-preview.png)
-
-The ready-to-upload PNG is [social-preview.png](images/social-preview.png), sized **1280 × 640**.
-Its editable SVG is [social-preview.svg](images/social-preview.svg).
-
-In repository **Settings → General → Social preview**, upload the PNG.
-The image is an artwork asset, not a screenshot of an app screen.
-
-## Repository template option
-
-If you choose to distribute this repository as a GitHub template, enable **Template repository** in repository
-settings. The current setup instructions use cloning/forking and do not depend on that setting.
+These are local metadata suggestions; repository settings have not been changed. The artwork in `docs/images` belongs to the inherited Kotlin starter and is not LetsPlay branding.

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.base.resources"
+    namespace = "com.uzuu.letplay.resources"
     compileSdk = 34
 
     defaultConfig {

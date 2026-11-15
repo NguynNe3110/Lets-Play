@@ -1,4 +1,4 @@
-name: CI
+name: LetsPlay CI
 
 on:
   push:

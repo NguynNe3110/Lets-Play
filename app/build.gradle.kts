@@ -20,11 +20,11 @@ fun isExplicitDemoAllowed(project: Project): Boolean {
 }
 
 android {
-    namespace = "com.example.base"
+    namespace = "com.uzuu.letplay"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.base"
+        applicationId = "com.uzuu.letplay"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

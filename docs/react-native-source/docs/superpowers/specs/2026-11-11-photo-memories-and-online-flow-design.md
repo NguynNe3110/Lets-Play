@@ -38,7 +38,7 @@
 
 ### 2.2. Phi mục tiêu (Non-Goals)
 - Không can thiệp cấu trúc tab hoặc thêm Album vào màn hình `KeoRoomDetailScreen.tsx` (phòng local MMKV v1) để tránh nguy cơ hồi quy logic tính toán/kế hoạch trên máy.
-- Không giả lập hoặc gọi các API backend ảo cho upload ảnh/album/DM khi server Render chưa có endpoint (theo đúng báo cáo [backend-gap-review.md](../integration/backend-gap-review.md)).
+- Không giả lập hoặc gọi các API backend ảo cho upload ảnh/album/DM khi server Render chưa có endpoint (theo đúng báo cáo [backend-gap-review.md](../../integration/backend-gap-review.md)).
 - Không xây dựng hệ thống chat riêng tư online khi chưa có API tin nhắn từ backend.
 
 ### 2.3. Ranh giới cấm (Anti-Goals)
