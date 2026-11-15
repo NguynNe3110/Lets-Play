@@ -1,0 +1,23 @@
+name: Improvement proposal
+description: Suggest an improvement to the starter, examples, or documentation.
+title: "[Proposal]: "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What problem should this solve?
+      description: Describe a concrete need when using this base.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Explain the intended behavior and the modules or documentation it would affect.
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Alternatives and tradeoffs
+      description: Explain the additional complexity or dependencies, if any.

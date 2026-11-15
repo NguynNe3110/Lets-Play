@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Application and Screen Titles -->
+    <string name="app_name">Base Kotlin MVVM</string>
+    <string name="todo_title">Ứng dụng Todo - Kotlin Clean MVVM</string>
+    <string name="users_title">Người dùng</string>
+    <string name="search_users_title">Tìm kiếm người dùng</string>
+    <string name="dialog_title_error">Lỗi</string>
+    <string name="dialog_title_validation">Lỗi xác thực</string>
+
+    <!-- Buttons & Actions -->
+    <string name="button_ok">Đồng ý</string>
+    <string name="button_cancel">Hủy</string>
+    <string name="button_retry">Thử lại</string>
+    <string name="button_add">Thêm</string>
+    <string name="button_dismiss">Đóng</string>
+    <string name="button_load_more">Tải thêm</string>
+    <string name="button_open_todo">Mở ví dụ Todo</string>
+    <!-- Legacy aliases for existing screens -->
+    <string name="add_button">Thêm</string>
+    <string name="add_todo_description">Thêm công việc</string>
+    <string name="retry_button">Thử lại</string>
+
+    <!-- Hints & Placeholders -->
+    <string name="new_todo_hint">Nhập công việc mới…</string>
+    <string name="search_users_hint">Tìm người dùng theo tên hoặc email…</string>
+    <string name="empty_todo_list">Chưa có công việc nào!</string>
+    <string name="empty_users_list">Không tìm thấy người dùng</string>
+
+    <!-- Loading States -->
+    <string name="loading_general">Đang tải…</string>
+    <string name="loading_todos">Đang tải danh sách công việc…</string>
+    <string name="loading_users">Đang tải danh sách người dùng…</string>
+    <string name="loading_more">Đang tải thêm…</string>
+    <string name="submitting">Đang gửi…</string>
+
+    <!-- Session Messages -->
+    <string name="session_loading">Đang kiểm tra phiên làm việc…</string>
+    <string name="session_expired">Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại.</string>
+    <string name="session_error">Lỗi khởi tạo phiên đăng nhập.</string>
+
+    <!-- Error Messages -->
+    <string name="error_network_connection">Lỗi kết nối mạng. Vui lòng kiểm tra kết nối internet.</string>
+    <string name="error_network_timeout">Hết thời gian chờ kết nối. Vui lòng thử lại.</string>
+    <string name="error_network_no_internet">Không có kết nối internet.</string>
+    <string name="error_server_generic">Lỗi máy chủ. Vui lòng thử lại sau.</string>
+    <string name="error_server_with_code">Lỗi máy chủ (%1$d). Vui lòng thử lại sau.</string>
+    <string name="error_validation_generic">Dữ liệu không hợp lệ.</string>
+    <string name="error_validation_empty_title">Tiêu đề không được để trống!</string>
+    <string name="error_search_query_empty">Từ khóa tìm kiếm không được để trống</string>
+    <string name="error_parse">Dữ liệu nhận được không hợp lệ.</string>
+    <string name="error_unknown">Đã xảy ra lỗi không xác định. Vui lòng thử lại.</string>
+</resources>

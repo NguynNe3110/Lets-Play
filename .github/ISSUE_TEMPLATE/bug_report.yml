@@ -1,0 +1,30 @@
+name: Bug report
+description: Report a reproducible problem in the base or its documentation.
+title: "[Bug]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the actual behavior and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include the command, screen action, or minimal example that reproduces the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, JDK, Android Studio, device/API level if relevant, and repository revision.
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Relevant output
+      description: Include a stack trace, test failure, or screenshot when it helps explain the problem.

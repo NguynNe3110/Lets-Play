@@ -1,0 +1,15 @@
+# Local configuration and generated build output
+.gradle/
+.kotlin/
+.idea/
+*.iml
+local.properties
+**/build/
+**/bin/
+captures/
+.DS_Store
+
+# Documentation tooling
+__pycache__/
+*.py[cod]
+/docs/plan/

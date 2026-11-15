@@ -1,0 +1,6 @@
+package com.example.base.domain.usecase.base
+
+/**
+ * Marker interface đại diện cho tham số đầu vào (Input) của UseCase.
+ */
+interface BaseInput

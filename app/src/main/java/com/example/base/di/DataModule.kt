@@ -1,0 +1,72 @@
+package com.example.base.di
+
+import com.example.base.config.AppConfig
+
+import com.example.base.data.api.ApiErrorParser
+import com.example.base.data.api.DataErrorMapper
+import com.example.base.data.api.JsonPlaceholderService
+import com.example.base.data.datasource.InMemoryTodoDataSource
+import com.example.base.data.datasource.TodoDataSource
+import com.example.base.data.repository.TodoRepositoryImpl
+import com.example.base.data.repository.UserRepositoryImpl
+import com.example.base.domain.repository.TodoRepository
+import com.example.base.domain.repository.UserRepository
+import com.example.base.shared.error.ErrorMapper
+import com.example.base.shared.logging.AppLogger
+import com.google.gson.Gson
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+@Module
+@InstallIn(SingletonComponent::class)
+object DataModule {
+    @Provides @Singleton
+    fun gson(): Gson = Gson()
+
+    @Provides @Singleton
+    fun errorParser(gson: Gson): ApiErrorParser = ApiErrorParser(gson)
+
+    @Provides @Singleton
+    fun dataErrorMapper(parser: ApiErrorParser): DataErrorMapper = DataErrorMapper(parser)
+
+    @Provides
+    fun errorMapper(mapper: DataErrorMapper): ErrorMapper = mapper
+
+    @Provides @Singleton
+    fun appConfig(): AppConfig = AppConfig.fromBuildConfig()
+
+    // Public client: no authentication interceptor or session tokens.
+    @Provides @Singleton
+    fun httpClient(): OkHttpClient = OkHttpClient.Builder()
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(10, TimeUnit.SECONDS)
+        .build()
+
+    @Provides @Singleton
+    fun retrofit(client: OkHttpClient, gson: Gson, config: AppConfig): Retrofit = Retrofit.Builder()
+        .baseUrl(config.apiBaseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+
+    @Provides @Singleton
+    fun usersApi(retrofit: Retrofit): JsonPlaceholderService =
+        retrofit.create(JsonPlaceholderService::class.java)
+
+    @Provides @Singleton
+    fun todoSource(): TodoDataSource = InMemoryTodoDataSource()
+
+    @Provides @Singleton
+    fun todos(source: TodoDataSource, logger: AppLogger): TodoRepository = TodoRepositoryImpl(source, logger)
+
+    @Provides @Singleton
+    fun users(api: JsonPlaceholderService, mapper: DataErrorMapper, logger: AppLogger): UserRepository =
+        UserRepositoryImpl(api, mapper, logger)
+}

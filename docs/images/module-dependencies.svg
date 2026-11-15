@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1030" viewBox="0 0 1600 1030" role="img">
+<title>All seven permitted dependencies between the five modules</title>
+<rect width="1600" height="1030" fill="#F5F7FB"/>
+<text x="70" y="55.5" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="19" font-weight="600" fill="#087F8C">KOTLIN MVVM BASE / 02</text>
+<text x="70" y="123.5" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="44" font-weight="600" fill="#152B42">Module dependencies</text>
+<text x="70" y="164.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="400" fill="#56667A">Arrows mean Gradle project dependencies, not runtime data flow.</text>
+<polyline points="690,320 470,440" fill="none" stroke="#087F8C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="470,440 478.7478564128168,427.81496786295827 484.9808410011397,439.2421062748836" fill="#087F8C"/>
+<polyline points="910,320 1170,440" fill="none" stroke="#087F8C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1170,440 1155.0020149845054,440.24585661471457 1160.456690852852,428.4273922332966" fill="#087F8C"/>
+<polyline points="640,265 130,265 130,785 260,785" fill="none" stroke="#315FC4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="260,785 246.4854669814637,791.5082560867634 246.4854669814637,778.4917439132366" fill="#315FC4"/>
+<polyline points="960,265 1470,265 1470,785 1340,785" fill="none" stroke="#315FC4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1340,785 1353.5145330185362,778.4917439132366 1353.5145330185362,791.5082560867634" fill="#315FC4"/>
+<polyline points="420,550 420,730" fill="none" stroke="#087F8C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="420,730 413.49174391323663,716.4854669814637 426.50825608676337,716.4854669814637" fill="#087F8C"/>
+<polyline points="580,495 820,495 820,760 1020,760" fill="none" stroke="#7354B6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1020,760 1006.4854669814637,766.5082560867634 1006.4854669814637,753.4917439132366" fill="#7354B6"/>
+<polyline points="580,785 1020,785" fill="none" stroke="#087F8C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1020,785 1006.4854669814637,791.5082560867634 1006.4854669814637,778.4917439132366" fill="#087F8C"/>
+<rect x="640" y="210" width="320" height="110" rx="20" fill="#E7F4F3" stroke="#DCE3ED" stroke-width="1.5"/>
+<text x="800.0" y="259.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="29" font-weight="600" fill="#087F8C">:app</text>
+<text x="800.0" y="298.0" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#56667A">Android + Hilt</text>
+<rect x="260" y="440" width="320" height="110" rx="20" fill="#F0EBFA" stroke="#DCE3ED" stroke-width="1.5"/>
+<text x="420.0" y="489.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="29" font-weight="600" fill="#7354B6">:data</text>
+<text x="420.0" y="528.0" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#56667A">Kotlin/JVM</text>
+<rect x="1020" y="440" width="320" height="110" rx="20" fill="#EBF0FC" stroke="#DCE3ED" stroke-width="1.5"/>
+<text x="1180.0" y="489.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="29" font-weight="600" fill="#315FC4">:resources</text>
+<text x="1180.0" y="528.0" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#56667A">Android library</text>
+<rect x="260" y="730" width="320" height="110" rx="20" fill="#F0EBFA" stroke="#DCE3ED" stroke-width="1.5"/>
+<text x="420.0" y="779.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="29" font-weight="600" fill="#7354B6">:domain</text>
+<text x="420.0" y="818.0" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#56667A">Kotlin/JVM</text>
+<rect x="1020" y="730" width="320" height="110" rx="20" fill="#F0EBFA" stroke="#DCE3ED" stroke-width="1.5"/>
+<text x="1180.0" y="779.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="29" font-weight="600" fill="#7354B6">:shared</text>
+<text x="1180.0" y="818.0" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#56667A">Kotlin/JVM</text>
+<text x="800" y="388.0" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#56667A">app wires concrete implementations</text>
+<text x="625" y="845.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#56667A">domain depends only on shared</text>
+<rect x="70" y="900" width="1460" height="80" rx="20" fill="#FFFFFF" stroke="#DCE3ED" stroke-width="1.5"/>
+<text x="103" y="949.0" text-anchor="start" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="400" fill="#152B42">verifyModuleBoundaries checks these edges. Screen and ViewModel code uses domain contracts.</text>
+</svg>
