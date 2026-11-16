@@ -39,9 +39,14 @@ import androidx.navigation.compose.composable
 import com.uzuu.letplay.domain.session.SessionManager
 import com.uzuu.letplay.domain.session.SessionState
 import com.uzuu.letplay.resources.R
+import com.uzuu.letplay.ui.auth.AuthViewModel
+import com.uzuu.letplay.ui.auth.LoginScreen
+import com.uzuu.letplay.ui.auth.ProfileScreen
 import com.uzuu.letplay.ui.base.BaseScreen
 import com.uzuu.letplay.ui.main.MainScreen
 import com.uzuu.letplay.ui.main.MainTab
+import com.uzuu.letplay.ui.product.ProductListScreen
+import com.uzuu.letplay.ui.product.ProductViewModel
 import com.uzuu.letplay.ui.todo.TodoScreen
 import com.uzuu.letplay.ui.todo.TodoTopBar
 import com.uzuu.letplay.ui.todo.TodoViewModel
@@ -103,10 +108,24 @@ fun AppNavHost(
                 UsersScreen(usersViewModel, navigator = navigator)
             }
         }
+        composable("products") {
+            val productViewModel: ProductViewModel = hiltViewModel()
+            ProductListScreen(viewModel = productViewModel, navigator = navigator)
+        }
         composable("login") {
-            Text(
-                text = stringResource(id = R.string.session_expired),
-                modifier = Modifier.padding(16.dp)
+            val authViewModel: AuthViewModel = hiltViewModel()
+            LoginScreen(
+                viewModel = authViewModel,
+                navigator = navigator,
+                onLoginSuccess = { navigator.replace(AppRoute.Products) }
+            )
+        }
+        composable("profile") {
+            val authViewModel: AuthViewModel = hiltViewModel()
+            ProfileScreen(
+                viewModel = authViewModel,
+                navigator = navigator,
+                onLogoutSuccess = { navigator.replace(AppRoute.Login) }
             )
         }
         composable("todo/{id}") { entry ->

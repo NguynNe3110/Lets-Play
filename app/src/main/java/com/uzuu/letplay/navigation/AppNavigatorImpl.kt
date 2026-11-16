@@ -56,6 +56,8 @@ fun AppRoute.toDestination(): String = when (this) {
     AppRoute.Todo -> "todo"
     AppRoute.Users -> "users"
     AppRoute.Login -> "login"
+    AppRoute.Products -> "products"
+    AppRoute.Profile -> "profile"
     is AppRoute.TodoDetail -> "todo/${Uri.encode(id)}"
 }
 
@@ -69,6 +71,8 @@ private fun String.toAppRoute(): AppRoute? = when {
     this == "todo" -> AppRoute.Todo
     this == "users" -> AppRoute.Users
     this == "login" -> AppRoute.Login
+    this == "products" -> AppRoute.Products
+    this == "profile" -> AppRoute.Profile
     startsWith("todo/") -> substringAfter("todo/").let { AppRoute.TodoDetail(Uri.decode(it)) }
     else -> null
 }

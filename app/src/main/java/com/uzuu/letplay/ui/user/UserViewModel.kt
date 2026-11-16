@@ -22,8 +22,8 @@ import com.uzuu.letplay.ui.base.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -91,6 +91,7 @@ class UserViewModel @Inject constructor(
     private var lastSubmittedQuery: String? = null
 
     private fun cancelActiveSearch() {
+        latestRequestId.incrementAndGet()
         searchJob?.cancel()
         searchJob = null
     }
@@ -100,26 +101,24 @@ class UserViewModel @Inject constructor(
         val trimmed = query.value.trim()
         if (trimmed.isNotEmpty()) {
             cancelActiveSearch()
-            searchJob = coroutineContext[Job]
+            searchJob = currentCoroutineContext()[Job]
             performSearch(trimmed)
         }
     }
 
-    init {
+    internal val queryCollectorJob: Job = viewModelScope.launch {
         // Automatic search debounced with latest-result semantics
-        viewModelScope.launch {
-            query.debounceWithLatest(timeoutMillis = 300L) { q ->
-                val trimmed = q.trim()
-                if (trimmed.isEmpty()) {
-                    cancelActiveSearch()
-                    _uiState.value = UserSearchUiState.Idle
-                } else if (trimmed != lastSubmittedQuery) {
-                    cancelActiveSearch()
-                    searchJob = coroutineContext[Job]
-                    performSearch(trimmed)
-                }
-            }.collect()
-        }
+        query.debounceWithLatest(timeoutMillis = 300L) { q ->
+            val trimmed = q.trim()
+            if (trimmed.isEmpty()) {
+                cancelActiveSearch()
+                _uiState.value = UserSearchUiState.Idle
+            } else if (trimmed != lastSubmittedQuery) {
+                cancelActiveSearch()
+                searchJob = currentCoroutineContext()[Job]
+                performSearch(trimmed)
+            }
+        }.collect()
     }
 
     fun onQueryChanged(newQuery: String) {

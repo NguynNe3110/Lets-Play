@@ -6,7 +6,7 @@
 
 ## Hiện trạng
 
-Project đã đổi nhận diện sang LetsPlay. App đang chạy vẫn chứa các ví dụ Todo/Users, khung session và client JSONPlaceholder kế thừa. Nghiệp vụ LetsPlay và tích hợp backend nằm trong [kế hoạch chuyển đổi](docs/migration/README.md), chưa được triển khai.
+LetsPlay đã có màn hình chính với các tab và quy tắc nghiệp vụ cho kế hoạch đi chơi và chia chi phí. Code kế thừa gồm ví dụ Todo/Users và [luồng REST mẫu cho đăng nhập và sản phẩm](docs/rest-api-integration-plan.md). Tích hợp backend LetsPlay được theo dõi trong [kế hoạch chuyển đổi](docs/migration/README.md).
 
 ## Cấu hình project
 
@@ -26,7 +26,7 @@ Dùng `devDebug` khi phát triển: ID này tách biệt với ID release/debug 
 
 ## Bắt đầu
 
-Dùng **JDK 21** chạy Gradle; bytecode Java/Kotlin target 17. Cài Android SDK **34**, Build Tools **34.0.0**; thiết bị cần API **24** trở lên. Project dùng Gradle **8.11.1**, AGP **8.3.1**, Kotlin **1.9.23**. Xem [version catalog](gradle/libs.versions.toml).
+Dùng **JDK 21** chạy Gradle; bytecode Java/Kotlin target 17. Cài Android SDK **34**, Build Tools **34.0.0**; thiết bị cần API **24** trở lên. Project dùng Gradle **9.4.1**, AGP **8.3.1**, Kotlin **2.0.21**. Xem [version catalog](gradle/libs.versions.toml).
 
 ```bash
 git clone https://github.com/NguynNe3110/Lets-Play.git

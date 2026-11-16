@@ -16,6 +16,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,14 +29,17 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.uzuu.letplay.navigation.AppNavigator
 import com.uzuu.letplay.navigation.NoOpAppNavigator
 import com.uzuu.letplay.resources.R
+import com.uzuu.letplay.shared.action.LoadingKey
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 /**
  * BaseScreen overload accepting [ScreenUiController], enabling screens to integrate
  * without requiring inheritance from [BaseViewModel].
+ *
+ * Delegates to the state/callbacks-based [BaseScreen] to share a unified effect consumption
+ * mechanism that respects [Lifecycle.State.STARTED].
  */
 @Composable
 fun BaseScreen(
@@ -49,36 +54,17 @@ fun BaseScreen(
 ) {
     val loadingKeys by controller.loadingKeys.collectAsStateWithLifecycle()
     val pendingEffects by controller.effects.collectAsStateWithLifecycle()
-    val snackbarHostState = remember { SnackbarHostState() }
-    val coroutineScope = rememberCoroutineScope()
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val context = LocalContext.current
-    val defaultEffectHandler = remember(context) { DefaultAppEffectHandler(context) }
-    val resolvedEffectHandler = effectHandler ?: defaultEffectHandler
-    val errorMessageMapper = remember(context) { DefaultUiErrorMessageMapper(context) }
 
-    LaunchedEffect(controller, resolvedEffectHandler, navigator, lifecycleOwner) {
-        lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            controller.effects.map { it.firstOrNull() }.distinctUntilChanged().filterNotNull().collect { pending ->
-                if (pending.effect !is UiEffect.ShowDialog) {
-                    resolvedEffectHandler.handle(pending.effect, snackbarHostState, navigator)
-                    controller.onEffectHandled(pending.id)
-                }
-            }
-        }
-    }
-
-    BaseScreenScaffold(
+    BaseScreen(
         loadingKeys = loadingKeys,
         pendingEffects = pendingEffects,
         onEffectHandled = controller::onEffectHandled,
-        snackbarHostState = snackbarHostState,
         modifier = modifier,
         topBar = topBar,
         bottomBar = bottomBar,
         floatingActionButton = floatingActionButton,
-        errorMessageMapper = errorMessageMapper,
-        onRetryAction = { action -> coroutineScope.launch { action() } },
+        navigator = navigator,
+        effectHandler = effectHandler,
         content = content
     )
 }
@@ -109,6 +95,10 @@ fun BaseScreen(
 
 /**
  * BaseScreen overload accepting state and callbacks directly, without requiring any ViewModel instance.
+ *
+ * Gated by [Lifecycle.State.STARTED] using [repeatOnLifecycle] so effects are not consumed or
+ * navigated away while the host lifecycle is stopped. Effects are retained until explicitly
+ * acknowledged via [onEffectHandled].
  */
 @Composable
 fun BaseScreen(
@@ -129,12 +119,24 @@ fun BaseScreen(
     val defaultEffectHandler = remember(context) { DefaultAppEffectHandler(context) }
     val resolvedEffectHandler = effectHandler ?: defaultEffectHandler
     val errorMessageMapper = remember(context) { DefaultUiErrorMessageMapper(context) }
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-    LaunchedEffect(pendingEffects.firstOrNull()?.id, resolvedEffectHandler, navigator) {
-        val pending = pendingEffects.firstOrNull()
-        if (pending != null && pending.effect !is UiEffect.ShowDialog) {
-            resolvedEffectHandler.handle(pending.effect, snackbarHostState, navigator)
-            onEffectHandled(pending.id)
+    val currentPendingEffects by rememberUpdatedState(pendingEffects)
+    val currentOnEffectHandled by rememberUpdatedState(onEffectHandled)
+    val currentEffectHandler by rememberUpdatedState(resolvedEffectHandler)
+    val currentNavigator by rememberUpdatedState(navigator)
+
+    LaunchedEffect(lifecycleOwner) {
+        lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            snapshotFlow { currentPendingEffects.firstOrNull() }
+                .distinctUntilChanged { old, new -> old?.id == new?.id }
+                .filterNotNull()
+                .collect { pending ->
+                    if (pending.effect !is UiEffect.ShowDialog) {
+                        currentEffectHandler.handle(pending.effect, snackbarHostState, currentNavigator)
+                        currentOnEffectHandled(pending.id)
+                    }
+                }
         }
     }
 
@@ -194,11 +196,11 @@ private fun BaseScreenScaffold(
                 val dialogText = try {
                     errorMessageMapper.map(context, dialog.exception)
                 } catch (_: Throwable) {
-                    dialog.exception.message
+                    dialog.exception.message.orEmpty()
                 }
                 AlertDialog(
                     onDismissRequest = { onEffectHandled(pending.id) },
-                    title = { Text(dialog.title) },
+                    title = { Text(dialog.title.asString()) },
                     text = { Text(dialogText) },
                     confirmButton = {
                         Button(onClick = {

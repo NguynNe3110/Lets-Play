@@ -70,6 +70,7 @@
     <string name="session_loading">Đang kiểm tra phiên làm việc…</string>
     <string name="session_expired">Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại.</string>
     <string name="session_error">Lỗi khởi tạo phiên đăng nhập.</string>
+    <string name="session_restore_failed">Không thể khôi phục phiên làm việc của bạn.</string>
 
     <!-- Error Messages -->
     <string name="error_network_connection">Lỗi kết nối mạng. Vui lòng kiểm tra kết nối internet.</string>
@@ -82,4 +83,46 @@
     <string name="error_search_query_empty">Từ khóa tìm kiếm không được để trống</string>
     <string name="error_parse">Dữ liệu nhận được không hợp lệ.</string>
     <string name="error_unknown">Đã xảy ra lỗi không xác định. Vui lòng thử lại.</string>
+    <!-- Products -->
+    <string name="products_title">Sản phẩm</string>
+    <string name="search_products_hint">Tìm kiếm sản phẩm…</string>
+    <string name="empty_products_list">Không tìm thấy sản phẩm nào</string>
+    <string name="in_stock">Còn hàng</string>
+    <string name="out_of_stock">Hết hàng</string>
+    <string name="all_categories">Tất cả</string>
+    <string name="sort_newest">Mới nhất</string>
+    <string name="sort_oldest">Cũ nhất</string>
+    <string name="sort_price_low_high">Giá: Thấp đến cao</string>
+    <string name="sort_price_high_low">Giá: Cao đến thấp</string>
+    <string name="sort_name_az">Tên: A đến Z</string>
+    <string name="sort_name_za">Tên: Z đến A</string>
+    <string name="load_more_failed">Không thể tải thêm sản phẩm</string>
+
+    <!-- Auth & Profile -->
+    <string name="login_title">Đăng nhập</string>
+    <string name="register_title">Đăng ký</string>
+    <string name="email_label">Email</string>
+    <string name="email_hint">Nhập email của bạn</string>
+    <string name="password_label">Mật khẩu</string>
+    <string name="password_hint">Nhập mật khẩu</string>
+    <string name="name_label">Họ và tên</string>
+    <string name="name_hint">Nhập họ tên của bạn</string>
+    <string name="role_label">Vai trò</string>
+    <string name="logout_button">Đăng xuất</string>
+    <string name="change_password_title">Đổi mật khẩu</string>
+    <string name="current_password_label">Mật khẩu hiện tại</string>
+    <string name="current_password_hint">Nhập mật khẩu hiện tại</string>
+    <string name="new_password_label">Mật khẩu mới</string>
+    <string name="new_password_hint">Nhập mật khẩu mới</string>
+    <string name="confirm_password_label">Xác nhận mật khẩu mới</string>
+    <string name="confirm_password_hint">Nhập lại mật khẩu mới</string>
+    <string name="switch_to_register">Chưa có tài khoản? Đăng ký</string>
+    <string name="switch_to_login">Đã có tài khoản? Đăng nhập</string>
+    <string name="password_mismatch">Mật khẩu xác nhận không khớp</string>
+    <string name="password_changed_success">Đổi mật khẩu thành công</string>
+    <string name="error_email_blank">Email không được để trống</string>
+    <string name="error_password_blank">Mật khẩu không được để trống</string>
+    <string name="error_name_blank">Họ tên không được để trống</string>
+    <string name="error_current_password_blank">Mật khẩu hiện tại không được để trống</string>
+    <string name="error_new_password_blank">Mật khẩu mới không được để trống</string>
 </resources>

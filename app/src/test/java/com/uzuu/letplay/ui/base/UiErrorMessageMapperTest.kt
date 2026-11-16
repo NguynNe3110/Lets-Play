@@ -182,4 +182,32 @@ class UiErrorMessageMapperTest {
         assertEquals("Thử lại", viHostState.currentSnackbarData?.visuals?.actionLabel)
         jobVi.cancel()
     }
+
+    @Test
+    fun resolvesAppLevelAndDialogTitleStringsInEnglishAndVietnamese() {
+        val viConfig = Configuration(context.resources.configuration).apply {
+            setLocale(Locale("vi"))
+        }
+        val viContext = context.createConfigurationContext(viConfig)
+
+        // Session restore failed
+        val sessionRestoreText = UiText.StringResource(R.string.session_restore_failed)
+        assertEquals("Unable to restore your session.", sessionRestoreText.asString(context))
+        assertEquals("Không thể khôi phục phiên làm việc của bạn.", sessionRestoreText.asString(viContext))
+
+        // Session expired
+        val sessionExpiredText = UiText.StringResource(R.string.session_expired)
+        assertEquals("Your session has expired. Please sign in again.", sessionExpiredText.asString(context))
+        assertEquals("Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại.", sessionExpiredText.asString(viContext))
+
+        // Dialog title validation
+        val validationTitleText = UiText.StringResource(R.string.dialog_title_validation)
+        assertEquals("Validation Error", validationTitleText.asString(context))
+        assertEquals("Lỗi xác thực", validationTitleText.asString(viContext))
+
+        // Dialog title error
+        val errorTitleText = UiText.StringResource(R.string.dialog_title_error)
+        assertEquals("Error", errorTitleText.asString(context))
+        assertEquals("Lỗi", errorTitleText.asString(viContext))
+    }
 }

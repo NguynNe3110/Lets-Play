@@ -264,6 +264,191 @@ class UserViewModelTest {
         assertTrue(!model.loadingManager.isLoading)
     }
 
+    @Test
+    fun consecutiveAutoSearchQueriesContinueToFireSearchesWithoutSubmit() = runTest {
+        val model = createModel()
+        runCurrent()
+        assertEquals(UserSearchUiState.Idle, model.uiState.value)
+
+        // Query 1: alice
+        model.onQueryChanged("alice")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(1, repository.fetchCalls)
+        val state1 = assertIs<UserSearchUiState.Success>(model.uiState.value)
+        assertEquals("alice", state1.query)
+        assertEquals("Alice Smith", state1.users.single().name)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active after query 1")
+
+        // Query 2: bob (consecutive auto-search without clicking submit)
+        model.onQueryChanged("bob")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(2, repository.fetchCalls)
+        val state2 = assertIs<UserSearchUiState.Success>(model.uiState.value)
+        assertEquals("bob", state2.query)
+        assertEquals("Bob Jones", state2.users.single().name)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active after query 2")
+
+        // Query 3: carol
+        model.onQueryChanged("carol")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(3, repository.fetchCalls)
+        val state3 = assertIs<UserSearchUiState.Empty>(model.uiState.value)
+        assertEquals("carol", state3.query)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active after query 3")
+    }
+
+    @Test
+    fun clearingQueryAndTypingAgainContinuesAutoSearch() = runTest {
+        val model = createModel()
+        runCurrent()
+
+        // Type alice
+        model.onQueryChanged("alice")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(1, repository.fetchCalls)
+        val success = assertIs<UserSearchUiState.Success>(model.uiState.value)
+        assertEquals("alice", success.query)
+
+        // Clear query
+        model.onQueryChanged("")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(UserSearchUiState.Idle, model.uiState.value)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active when cleared")
+
+        // Type bob after clearing
+        model.onQueryChanged("bob")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(2, repository.fetchCalls)
+        val bobState = assertIs<UserSearchUiState.Success>(model.uiState.value)
+        assertEquals("bob", bobState.query)
+        assertEquals("Bob Jones", bobState.users.single().name)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active after retyping")
+    }
+
+    @Test
+    fun submitSearchAfterAutoSearchDoesNotKillCollectorJob() = runTest {
+        val model = createModel()
+        runCurrent()
+
+        // 1. Auto-search alice
+        model.onQueryChanged("alice")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(1, repository.fetchCalls)
+        assertIs<UserSearchUiState.Success>(model.uiState.value)
+
+        // 2. Call submitSearch with current query
+        model.submitSearch()
+        runCurrent()
+        advanceUntilIdle()
+        assertEquals(2, repository.fetchCalls)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active after submitSearch")
+
+        // 3. Type new query for auto-search without submit
+        model.onQueryChanged("bob")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(3, repository.fetchCalls)
+        val bobState = assertIs<UserSearchUiState.Success>(model.uiState.value)
+        assertEquals("bob", bobState.query)
+        assertEquals("Bob Jones", bobState.users.single().name)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active after subsequent auto-search")
+    }
+
+    @Test
+    fun refreshActionAfterAutoSearchDoesNotKillCollectorJob() = runTest {
+        val model = createModel()
+        runCurrent()
+
+        // 1. Auto-search alice
+        model.onQueryChanged("alice")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(1, repository.fetchCalls)
+        assertIs<UserSearchUiState.Success>(model.uiState.value)
+
+        // 2. Call refreshAction
+        model.refreshAction.invoke()
+        runCurrent()
+        advanceUntilIdle()
+        assertEquals(2, repository.fetchCalls)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active after refreshAction")
+
+        // 3. Type bob for auto-search
+        model.onQueryChanged("bob")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(3, repository.fetchCalls)
+        val bobState = assertIs<UserSearchUiState.Success>(model.uiState.value)
+        assertEquals("bob", bobState.query)
+        assertEquals("Bob Jones", bobState.users.single().name)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active after subsequent auto-search")
+    }
+
+    @Test
+    fun performSearchAfterAutoSearchDoesNotKillCollectorJob() = runTest {
+        val model = createModel()
+        runCurrent()
+
+        // 1. Auto-search alice
+        model.onQueryChanged("alice")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(1, repository.fetchCalls)
+        assertIs<UserSearchUiState.Success>(model.uiState.value)
+
+        // 2. Call performSearch directly with empty string
+        model.performSearch("")
+        assertEquals(UserSearchUiState.Idle, model.uiState.value)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active after performSearch empty")
+
+        // 3. Auto-search bob
+        model.onQueryChanged("bob")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(2, repository.fetchCalls)
+        val bobState = assertIs<UserSearchUiState.Success>(model.uiState.value)
+        assertEquals("bob", bobState.query)
+        assertEquals("Bob Jones", bobState.users.single().name)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must remain active after auto-search following performSearch")
+    }
+
+    @Test
+    fun searchSubmitCancellingInFlightDebouncedSearchKeepsCollectorAliveForNextQueries() = runTest {
+        val model = createModel()
+        val gate = CompletableDeferred<Unit>()
+        repository.fetchGate = gate
+
+        model.onQueryChanged("alice")
+        advanceTimeBy(350)
+        runCurrent()
+        assertEquals(1, repository.fetchCalls)
+
+        // User changes query to "bob" and immediately submits
+        model.onQueryChanged("bob")
+        model.submitSearch()
+        runCurrent()
+        assertEquals(2, repository.fetchCalls)
+
+        gate.complete(Unit)
+        advanceUntilIdle()
+        assertEquals("bob", assertIs<UserSearchUiState.Success>(model.uiState.value).query)
+        assertTrue(model.queryCollectorJob.isActive, "Collector job must survive submit cancelling in-flight search")
+
+        // Next auto-search must still work
+        model.onQueryChanged("alice")
+        advanceTimeBy(350)
+        advanceUntilIdle()
+        assertEquals(3, repository.fetchCalls)
+        assertEquals("alice", assertIs<UserSearchUiState.Success>(model.uiState.value).query)
+    }
+
     private class FakeUserRepository : UserRepository {
         var fetchCalls = 0
         var failure: AppException? = null

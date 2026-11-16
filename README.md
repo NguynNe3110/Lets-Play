@@ -6,7 +6,7 @@ Native Android app for planning outings, shared expenses, and photo memories. Th
 
 ## Current status
 
-Project identity is configured for LetsPlay. The running app still contains the inherited Todo/Users examples, session scaffolding, and JSONPlaceholder client. Product flows and backend integration are planned in [docs/migration](docs/migration/README.md); they are not implemented yet.
+LetsPlay includes a main tab shell and domain rules for outing plans and shared expenses. It also includes the upstream Todo/Users examples and [REST practice flows for auth and products](docs/rest-api-integration-plan.md). The LetsPlay backend integration is tracked in the [migration plan](docs/migration/README.md).
 
 ## Project configuration
 
@@ -26,7 +26,7 @@ Use `devDebug` for local development. Its ID is separate from the documented Rea
 
 ## Getting started
 
-Use **JDK 21** for Gradle; Java/Kotlin bytecode targets 17. Install Android SDK **34**, Build Tools **34.0.0**; devices need API **24** or later. The project uses Gradle **8.11.1**, AGP **8.3.1**, Kotlin **1.9.23**. See the [version catalog](gradle/libs.versions.toml).
+Use **JDK 21** for Gradle; Java/Kotlin bytecode targets 17. Install Android SDK **34**, Build Tools **34.0.0**; devices need API **24** or later. The project uses Gradle **9.4.1**, AGP **8.3.1**, Kotlin **2.0.21**. See the [version catalog](gradle/libs.versions.toml).
 
 ```bash
 git clone https://github.com/NguynNe3110/Lets-Play.git

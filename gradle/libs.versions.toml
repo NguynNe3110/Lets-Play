@@ -1,6 +1,6 @@
 [versions]
 agp = "8.3.1"
-kotlin = "1.9.23"
+kotlin = "2.0.21"
 coreKotlin = "1.12.0"
 lifecycleRuntime = "2.7.0"
 activityCompose = "1.8.2"

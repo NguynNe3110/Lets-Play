@@ -9,10 +9,16 @@ sealed interface UiEffect {
         val onRetry: (suspend () -> Unit)? = null
     ) : UiEffect
     data class ShowDialog(
-        val title: String,
+        val title: UiText,
         val exception: AppException,
         val onRetry: (suspend () -> Unit)? = null
-    ) : UiEffect
+    ) : UiEffect {
+        constructor(
+            title: String,
+            exception: AppException,
+            onRetry: (suspend () -> Unit)? = null
+        ) : this(UiText.DynamicString(title), exception, onRetry)
+    }
     data class ShowMessage(val message: String) : UiEffect
     data class Navigate(val route: AppRoute) : UiEffect
 }

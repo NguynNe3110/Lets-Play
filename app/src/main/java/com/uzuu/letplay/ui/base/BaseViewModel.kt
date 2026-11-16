@@ -2,6 +2,7 @@ package com.uzuu.letplay.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.uzuu.letplay.resources.R
 import com.uzuu.letplay.shared.action.ActionRunner
 import com.uzuu.letplay.shared.action.LoadingKey
 import com.uzuu.letplay.shared.action.LoadingManager
@@ -125,7 +126,7 @@ open class BaseViewModel(
         when (mode) {
             ErrorPresentationMode.Auto -> {
                 if (error is AppException.ValidationError) {
-                    enqueue(UiEffect.ShowDialog("Validation error", error, onRetry))
+                    enqueue(UiEffect.ShowDialog(UiText.StringResource(R.string.dialog_title_validation), error, onRetry))
                 } else {
                     enqueue(UiEffect.ShowError(error, onRetry))
                 }

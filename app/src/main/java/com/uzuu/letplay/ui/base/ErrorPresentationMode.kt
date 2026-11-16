@@ -1,5 +1,6 @@
 package com.uzuu.letplay.ui.base
 
+import com.uzuu.letplay.resources.R
 import com.uzuu.letplay.shared.error.AppException
 
 /**
@@ -17,7 +18,11 @@ sealed interface ErrorPresentationMode {
     /**
      * Displays error in an alert dialog with an optional title.
      */
-    data class Dialog(val title: String = "Error") : ErrorPresentationMode
+    data class Dialog(
+        val title: UiText = UiText.StringResource(R.string.dialog_title_error)
+    ) : ErrorPresentationMode {
+        constructor(title: String) : this(UiText.DynamicString(title))
+    }
 
     /**
      * Displays error in a transient snackbar with an optional retry action.
