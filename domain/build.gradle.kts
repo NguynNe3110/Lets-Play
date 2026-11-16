@@ -1,6 +1,6 @@
 plugins {
     `java-library`
-    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.jvm) // đánh dấu module này là koltin thuần jvm
 }
 
 java {
@@ -15,7 +15,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 }
 
 dependencies {
-    api(project(":shared"))
+    api(project(":shared")) //
     api(libs.kotlinx.coroutines.core)
     testImplementation(kotlin("test"))
     testImplementation(libs.kotlinx.coroutines.test)

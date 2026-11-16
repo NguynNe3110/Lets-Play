@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Kèo · Bốn màn hình điện thoại</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;padding:34px 32px;background:#e9e8e5;color:#191919;font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}header{display:flex;align-items:center;justify-content:space-between;margin:0 0 32px}h1{font-size:34px;letter-spacing:-1.7px;margin:0}h1 span{color:#ae422c}header p{font-size:12px;color:#6f6e69;margin:0}main{display:grid;grid-template-columns:repeat(4,315px);justify-content:space-between;gap:20px}.screen-title{font-size:13px;font-weight:750;display:flex;align-items:center;gap:9px;margin:0 0 13px;padding:0 4px}.screen-title small{font-size:10px;color:#77766f;font-weight:400}.wrap{width:315px;height:660px}.device{width:414px;height:868px;border:10px solid #253e32;padding:2px;border-radius:58px;background:#f7f6f2;overflow:hidden;transform:scale(.76);transform-origin:top left;box-shadow:0 0 0 1px #888,0 12px 30px #0002}iframe{display:block;width:390px;height:844px;border:0;border-radius:46px}footer{margin:28px 0 0;text-align:center;font-size:11px;color:#7e7c75}
+  </style>
+</head>
+<body>
+  <header><h1>kèo<span>.</span></h1><p>Chụp một tấm. Hẹn một kèo. Giữ một ngày.</p></header>
+  <main>
+    <section><p class="screen-title">01 · Home <small>Chụp khoảnh khắc</small></p><div class="wrap"><div class="device"><iframe src="../dist/app.html?preview=1&amp;test=1" data-page="camera" title="Home chụp ảnh"></iframe></div></div></section>
+    <section><p class="screen-title">02 · Kèo <small>Những cuộc hẹn</small></p><div class="wrap"><div class="device"><iframe src="../dist/app.html?preview=1&amp;test=1" data-page="rooms" title="Kèo hiện tại"></iframe></div></div></section>
+    <section><p class="screen-title">03 · Tin nhắn <small>Gửi nhau một lời</small></p><div class="wrap"><div class="device"><iframe src="../dist/app.html?preview=1&amp;test=1" data-page="inbox" title="Tin nhắn"></iframe></div></div></section>
+    <section><p class="screen-title">04 · Thời gian <small>Nhìn lại những ngày vui</small></p><div class="wrap"><div class="device"><iframe src="../dist/app.html?preview=1&amp;test=1" data-page="library" title="Thời gian"></iframe></div></div></section>
+  </main>
+  <footer>Viewport 390 × 844 · Ảnh minh họa và dữ liệu giả · Prototype tương tác lấy bố cục tham chiếu từ Locket</footer>
+  <script>
+    document.querySelectorAll('iframe').forEach(frame => frame.addEventListener('load', () => {
+      const win = frame.contentWindow;
+      const app = win.KeoPrototype;
+      Object.assign(app.getState(), win.KeoDomain.seed());
+      Object.assign(app.getView(), { page: frame.dataset.page, captured: false, chatPeer: null, referenceId: null, roomFilter: 'ACTIVE', memoryGrid: false });
+      app.render();
+    }, { once: true }));
+  </script>
+</body>
+</html>

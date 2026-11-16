@@ -1,7 +1,7 @@
 import java.net.URI
 
 plugins {
-    alias(libs.plugins.android.application) // called plugin
+    alias(libs.plugins.android.application) //  đánh dấu module này là app, dùng plugin android application để tạo app
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.kapt)
@@ -87,8 +87,8 @@ android {
         }
     }
 
-    flavorDimensions += listOf("environment")
-    productFlavors {
+    flavorDimensions += listOf("environment") // nhóm của project
+    productFlavors { // 2 product flavor
         create("dev") {
             dimension = "environment"
             applicationIdSuffix = ".dev"
@@ -116,7 +116,10 @@ android {
         }
     }
 
-    buildTypes {
+    // android sẽ kết hợp flavor + type (như vậy sẽ có 4 loại, nó sẽ tạo ra id app khác nhau)
+    // variant: devĐebug, environment: dev, DEBUG: true -> id app: com.uzuu.letplay.dev.debug
+    
+    buildTypes { //2 loại build type
         debug {
             applicationIdSuffix = ".debug"
         }
@@ -127,6 +130,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+        // ngày trước viết buildFeatures ở đây
     }
 
     compileOptions {

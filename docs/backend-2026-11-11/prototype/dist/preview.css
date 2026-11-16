@@ -1,0 +1,302 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  background: #e9ede4;
+  color: #24372f;
+  font:
+    13px/1.5 -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+}
+.preview-header {
+  flex: 0 0 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 40px;
+  border-bottom: 1px solid #0000000d;
+}
+.preview-brand {
+  font-size: 28px;
+  letter-spacing: -1.6px;
+  font-weight: 850;
+  color: #24372f;
+  text-decoration: none;
+}
+.preview-brand span {
+  color: #ae422c;
+}
+.preview-header nav {
+  display: flex;
+  gap: 5px;
+  background: #dfe6d9;
+  border-radius: 12px;
+  padding: 4px;
+}
+.preview-header button {
+  min-height: 36px;
+  border: 0;
+  border-radius: 9px;
+  color: #686761;
+  background: transparent;
+  padding: 7px 14px;
+  font:
+    600 11px/1.5 -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  cursor: pointer;
+}
+.preview-header button.active {
+  background: #fff;
+  color: #171717;
+  box-shadow: 0 2px 5px #0000000d;
+}
+.preview-header button:focus-visible {
+  outline: 2px solid #876500;
+  outline-offset: 3px;
+}
+.preview-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #787771;
+}
+.preview-stage {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 20px;
+}
+.phone-wrap {
+  position: relative;
+  width: 414px;
+  height: 868px;
+  flex-shrink: 0;
+}
+.phone {
+  transform-origin: top left;
+  width: 414px;
+  height: 868px;
+  border: 10px solid #253e32;
+  border-radius: 58px;
+  background: #f7f6f2;
+  padding: 2px;
+  box-shadow:
+    0 0 0 1px #777,
+    0 16px 38px #0003;
+  overflow: hidden;
+}
+iframe {
+  display: block;
+  border: 0;
+  width: 390px;
+  height: 844px;
+  border-radius: 46px;
+  background: #f7f6f2;
+}
+.preview-footer {
+  flex: 0 0 46px;
+  text-align: center;
+  font-size: 11px;
+  color: #66655f;
+  padding: 0 16px;
+}
+.preview-footer span {
+  display: block;
+  margin-top: 2px;
+  font-size: 9px;
+  color: #85847f;
+}
+.preview-workspace {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+}
+.screen-catalog {
+  padding: 22px 18px 18px;
+  border-right: 1px solid #d4ddce;
+  background: #f7f8f2;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.catalog-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.catalog-heading h2 {
+  font-size: 17px;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+.catalog-heading > span {
+  background: #e5edde;
+  color: #245c49;
+  padding: 2px 8px;
+  border-radius: 15px;
+  font-size: 11px;
+}
+.screen-catalog > p {
+  font-size: 11px;
+  color: #68756e;
+  margin: 10px 0 16px;
+  line-height: 1.6;
+}
+.catalog-search {
+  display: block;
+  margin: 0 0 12px;
+}
+.catalog-search > span {
+  display: block;
+  font-size: 10px;
+  font-weight: 650;
+  margin-bottom: 5px;
+}
+.catalog-search input {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid #d0dac9;
+  background: white;
+  border-radius: 11px;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 12px;
+  color: #24372f;
+}
+.free-preview {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #cbd8c4;
+  background: #fffefa;
+  color: #245c49;
+  border-radius: 11px;
+  font:
+    600 12px/1.4 'Segoe UI',
+    sans-serif;
+  cursor: pointer;
+  margin: 0 0 18px;
+}
+.free-preview.active {
+  background: #245c49;
+  color: #fffefa;
+  border-color: #245c49;
+}
+#screenList details {
+  border-top: 1px solid #e0e6dd;
+  padding: 11px 0 8px;
+}
+#screenList summary {
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 750;
+  color: #68756e;
+  letter-spacing: 0.5px;
+  padding: 3px 0 8px;
+}
+#screenList button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 37px;
+  padding: 8px 9px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #405648;
+  text-align: left;
+  font:
+    12px/1.45 'Segoe UI',
+    sans-serif;
+  cursor: pointer;
+}
+#screenList button i {
+  font-size: 15px;
+  font-style: normal;
+  color: #8b9c82;
+}
+#screenList button:hover {
+  background: #eaf1e9;
+}
+#screenList button.active {
+  color: #245c49;
+  background: #e1eddb;
+  font-weight: 650;
+}
+.screen-catalog button:focus-visible,
+.catalog-search input:focus-visible,
+#screenList summary:focus-visible {
+  outline: 2px solid #245c49;
+  outline-offset: 2px;
+}
+@media (max-width: 900px) and (min-width: 601px) {
+  .preview-workspace {
+    grid-template-columns: 230px minmax(0, 1fr);
+  }
+  .screen-catalog {
+    padding: 18px 12px;
+  }
+  .preview-header {
+    padding: 0 20px;
+  }
+  .preview-tag {
+    display: none;
+  }
+  .preview-header nav button {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+@media (max-width: 600px) {
+  body {
+    background: #f7f6f2;
+  }
+  .preview-header,
+  .preview-footer,
+  .screen-catalog {
+    display: none;
+  }
+  .preview-stage {
+    padding: 0;
+    display: block;
+  }
+  .preview-workspace {
+    display: block;
+  }
+  .phone-wrap {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .phone {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    transform: none !important;
+    box-shadow: none;
+  }
+  iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0;
+  }
+}

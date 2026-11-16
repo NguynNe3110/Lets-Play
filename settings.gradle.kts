@@ -17,6 +17,7 @@ dependencyResolutionManagement {
 rootProject.name = "LetsPlay"
 
 // Layer-based multi-module application. Dependencies are declared in each module.
+//khai báo các module
 include(":shared")
 include(":resources")
 include(":domain")
