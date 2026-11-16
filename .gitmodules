@@ -1,0 +1,3 @@
+[submodule "LetsPlay-Spec"]
+	path = docs/LetsPlay-Spec
+	url = https://github.com/NguynNe3110/Lets-Play-Spec.git
