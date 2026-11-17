@@ -1,6 +1,9 @@
 # Kế hoạch tích hợp REST — Practice API của chủ dự án
 
-Ngày cập nhật: **16/11/2026**. Trạng thái: **Đã đọc tài liệu/OpenAPI; chưa tích hợp code**.
+> **Nguồn hiện hành 16/11/2026:** [Đặc tả và hiện trạng thống nhất](LetsPlay-Spec/UNIFIED-SPEC.md). Trang này giữ lịch sử/baseline; các trạng thái, yêu cầu hoặc số test cũ mâu thuẫn dùng bản thống nhất. Báo cáo backend mới được phân biệt với source Android và mô phỏng prototype.
+
+
+Ngày cập nhật: **16/11/2026**. Trạng thái hiện hành: **Đã có source Products/Auth mẫu Practice API; còn giới hạn production** — xem [bản thống nhất](LetsPlay-Spec/UNIFIED-SPEC.md). Các checklist và số test bên dưới giữ theo lịch sử, không phải kết quả chạy lại trong lượt hợp nhất.
 
 - [Swagger UI](https://templetezuu.netlify.app/docs/)
 - [OpenAPI JSON](https://templetezuu.netlify.app/openapi.json)

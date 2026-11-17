@@ -1,5 +1,8 @@
 # Sổ tay Cải tiến Base theo Bài toán Sản phẩm (Product-Driven Evolution Playbook)
 
+> **Nguồn hiện hành 16/11/2026:** [Đặc tả và hiện trạng thống nhất](LetsPlay-Spec/UNIFIED-SPEC.md). Trang này giữ lịch sử/baseline; các trạng thái, yêu cầu hoặc số test cũ mâu thuẫn dùng bản thống nhất. Báo cáo backend mới được phân biệt với source Android và mô phỏng prototype.
+
+
 > **Mục đích:** Tài liệu này đóng vai trò hướng dẫn kỹ thuật (architectural playbook) cho các phiên bản tiếp theo của base khi ứng dụng bắt đầu phát triển các tính năng thực tế và va chạm với những bài toán hóc búa trong môi trường production.
 >
 > **Triết lý cốt lõi:** *"Không tối ưu hóa sớm khi chưa có nghiệp vụ (Premature Optimization is the root of all evil)."* Khi một bài toán sản phẩm thực tế phát sinh, đối chiếu tài liệu này để triển khai giải pháp chuẩn kiến trúc, giữ vững ranh giới 5 module (`app`, `domain`, `data`, `shared`, `resources`) mà không làm suy thoái mã nguồn.

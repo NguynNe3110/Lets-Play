@@ -1,5 +1,8 @@
 # Review và kế hoạch ổn định Kotlin Base v1
 
+> **Nguồn hiện hành 16/11/2026:** [Đặc tả và hiện trạng thống nhất](LetsPlay-Spec/UNIFIED-SPEC.md). Trang này giữ lịch sử/baseline; các trạng thái, yêu cầu hoặc số test cũ mâu thuẫn dùng bản thống nhất. Báo cáo backend mới được phân biệt với source Android và mô phỏng prototype.
+
+
 Ngày: 15/11/2026. Revision được review: **53edac7** (`upload file docs`).
 Workspace ban đầu sạch. Phạm vi thay đổi của lượt này: **chỉ tài liệu**, không sửa implementation hoặc test.
 
