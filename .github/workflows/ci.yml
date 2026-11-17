@@ -38,6 +38,9 @@ jobs:
       - name: Run Core JVM Unit Tests
         run: ./gradlew :domain:test :data:test :shared:test
 
+      - name: Run Composition Unit Tests (Debug)
+        run: ./gradlew :composition:testDebugUnitTest
+
       - name: Run App Unit Tests (Dev & Prod)
         run: ./gradlew :app:testDevDebugUnitTest :app:testProdDebugUnitTest
 
@@ -53,5 +56,6 @@ jobs:
             domain/build/reports/tests/
             data/build/reports/tests/
             shared/build/reports/tests/
+            composition/build/reports/tests/
             app/build/reports/tests/
           retention-days: 7

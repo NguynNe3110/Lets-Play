@@ -2,6 +2,8 @@ package com.uzuu.letplay.di
 
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
+import com.uzuu.letplay.composition.config.NetworkConfig
+import com.uzuu.letplay.config.AppConfig
 import com.uzuu.letplay.domain.session.SessionManager
 import com.uzuu.letplay.session.DataStoreSessionManager
 import com.uzuu.letplay.shared.dispatcher.DefaultDispatcherProvider
@@ -27,6 +29,12 @@ annotation class ApplicationScope
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Provides @Singleton
+    fun appConfig(): AppConfig = AppConfig.fromBuildConfig()
+
+    @Provides @Singleton
+    fun networkConfig(config: AppConfig): NetworkConfig = NetworkConfig(config.apiBaseUrl)
+
     @Provides @Singleton
     fun dispatchers(): DispatcherProvider = DefaultDispatcherProvider()
 

@@ -1,9 +1,5 @@
 package com.uzuu.letplay.di
 
-import com.uzuu.letplay.data.api.practice.auth.AuthInterceptor
-import com.uzuu.letplay.data.api.practice.auth.PracticeAuthApi
-import com.uzuu.letplay.data.api.practice.auth.TokenStorage
-import com.uzuu.letplay.data.repository.AuthRepositoryImpl
 import com.uzuu.letplay.domain.repository.AuthRepository
 import com.uzuu.letplay.domain.usecase.auth.ChangePasswordUseCase
 import com.uzuu.letplay.domain.usecase.auth.GetMeUseCase
@@ -20,11 +16,7 @@ import dagger.hilt.components.SingletonComponent
 @EntryPoint
 @InstallIn(SingletonComponent::class)
 interface AuthEntryPoint {
-    fun tokenStorage(): TokenStorage
-    fun authInterceptor(): AuthInterceptor
-    fun practiceAuthApi(): PracticeAuthApi
     fun authRepository(): AuthRepository
-    fun authRepositoryImpl(): AuthRepositoryImpl
     fun loginUseCase(): LoginUseCase
     fun registerUseCase(): RegisterUseCase
     fun getMeUseCase(): GetMeUseCase

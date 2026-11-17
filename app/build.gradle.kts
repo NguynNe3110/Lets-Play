@@ -162,13 +162,9 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":data"))
+    implementation(project(":composition"))
     implementation(project(":resources"))
     implementation(project(":shared"))
-    implementation(libs.okhttp)
-    implementation(libs.gson)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
     implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.androidx.core.ktx)
@@ -187,7 +183,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
-    // Hilt is the application composition root. Pure JVM modules remain DI-framework agnostic.
+    // Hilt entry points live here; reusable wiring is owned by :composition.
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
@@ -201,6 +197,11 @@ dependencies {
 
 kapt {
     correctErrorTypes = true
+}
+
+hilt {
+    // Aggregate bindings behind :composition implementation dependencies.
+    enableAggregatingTask = true
 }
 
 val checkProdReleaseConfig by tasks.registering {
