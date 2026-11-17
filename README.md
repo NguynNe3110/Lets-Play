@@ -43,9 +43,9 @@ On macOS/Linux use `./gradlew`. APK: `app/build/outputs/apk/dev/debug/app-dev-de
 
 ## Architecture
 
-Five modules remain: `app` (Compose, ViewModels, navigation, Android session adapter, Hilt), `domain` (business contracts/use cases), `data` (API/DTO/repositories), `shared` (Result/errors/coroutine utilities), and `resources` (theme/colors/strings).
+Six modules organize the app: `app` (Compose, navigation, session and runtime config), `composition` (Hilt bindings for network, repositories and use cases), `domain` (business contracts and use cases), `data` (API, DTOs and repositories), `shared` (errors, results and coroutine utilities), and `resources` (theme, colors and strings).
 
-Read the [current architecture](docs/architecture.md) and [target architecture](docs/migration/02-kotlin-architecture.md).
+See the [DI modularization notes](docs/di-modularization-plan.md) for the dependency graph.
 
 ## API and release configuration
 
@@ -56,11 +56,11 @@ The existing production release check rejects the demo endpoint unless explicitl
 ## Verification
 
 ```powershell
-.\gradlew.bat verifyModuleBoundaries :domain:test :data:test :shared:test
+.\gradlew.bat verifyModuleBoundaries :domain:test :data:test :shared:test :composition:testDebugUnitTest
 .\gradlew.bat :app:testDevDebugUnitTest :app:testProdDebugUnitTest :app:assembleDebug
 ```
 
-See [testing](docs/testing.md) for reports and validation limits. CI checks module boundaries, unit tests, and both debug variants.
+CI checks module boundaries, JVM and Android unit tests, and both debug variants.
 
 ## License and origin
 

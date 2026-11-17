@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
+// hàm chuẩn hóa định dạng url (input)
 fun normalizeApiBaseUrl(rawUrl: String): String {
     val trimmed = rawUrl.trim()
     if (trimmed.isEmpty()) return ""
@@ -67,6 +68,7 @@ fun isExplicitDemoAllowed(project: Project): Boolean {
     }
 }
 
+//để chuẩn hóa url thành dạng gì đó
 fun escapeBuildConfigString(value: String): String =
     "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"") + "\""
 
@@ -90,7 +92,7 @@ android {
     flavorDimensions += listOf("environment") // nhóm của project
     productFlavors { // 2 product flavor
         create("dev") {
-            dimension = "environment"
+            dimension = "environment" // cái này hình như có liên quan đến cái trên, (kiểu khai báo nso thuộc nhóm nào)
             applicationIdSuffix = ".dev"
             val devApiBaseUrl = normalizeApiBaseUrl(
                 (project.findProperty("DEV_API_BASE_URL") as? String)
@@ -98,7 +100,9 @@ android {
                     ?: "https://jsonplaceholder.typicode.com/"
             )
             val isDemo = isDemoApiUrl(devApiBaseUrl)
-            buildConfigField("String", "ENVIRONMENT", "\"dev\"")
+            // yêu cầu sinh field cho class BuildConfig (nó sẽ tự động tạo thuộc tính)
+            // việc build sẽ được tự động khi được setup buildConfig = true (ở buildFeature)
+            buildConfigField("String", "ENVIRONMENT", "\"dev\"")  // tham số 3 là biểu thức giá trị được đưa vào file sinh ra nên cần trong dấu ""
             buildConfigField("String", "API_BASE_URL", escapeBuildConfigString(devApiBaseUrl))
             buildConfigField("Boolean", "DEMO_MODE", "$isDemo")
         }
@@ -130,7 +134,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-        // ngày trước viết buildFeatures ở đây
     }
 
     compileOptions {
@@ -140,7 +143,8 @@ android {
 
     buildFeatures {
         compose = true
-        buildConfig = true
+        buildConfig = true //bật build config với các hàm đã được setup trên kia
+        // ngày truowsck hia báo ở đây
     }
 
     packaging {
@@ -162,13 +166,9 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":data"))
+    implementation(project(":composition"))
     implementation(project(":resources"))
     implementation(project(":shared"))
-    implementation(libs.okhttp)
-    implementation(libs.gson)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
     implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.androidx.core.ktx)
@@ -187,7 +187,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
-    // Hilt is the application composition root. Pure JVM modules remain DI-framework agnostic.
+    // Hilt entry points live here; reusable wiring is owned by :composition.
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
@@ -201,6 +201,11 @@ dependencies {
 
 kapt {
     correctErrorTypes = true
+}
+
+hilt {
+    // Aggregate bindings behind :composition implementation dependencies.
+    enableAggregatingTask = true
 }
 
 val checkProdReleaseConfig by tasks.registering {

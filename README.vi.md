@@ -43,9 +43,9 @@ Trên macOS/Linux dùng `./gradlew`. APK: `app/build/outputs/apk/dev/debug/app-d
 
 ## Kiến trúc
 
-Giữ 5 module: `app` (Compose, ViewModel, navigation, adapter session Android, Hilt), `domain` (contract/use case nghiệp vụ), `data` (API/DTO/repository), `shared` (Result/lỗi/tiện ích coroutine), `resources` (theme/màu/string).
+Dự án có sáu module gồm `app` (Compose, điều hướng, session và cấu hình runtime), `composition` (Hilt wiring cho network, repository và use case), `domain` (contract và use case nghiệp vụ), `data` (API, DTO và repository), `shared` (lỗi, kết quả và tiện ích coroutine), `resources` (theme, màu và chuỗi).
 
-Xem [kiến trúc hiện tại](docs/architecture.md) và [kiến trúc đích](docs/migration/02-kotlin-architecture.md).
+Xem [tài liệu tổ chức DI](docs/di-modularization-plan.md) để biết quan hệ phụ thuộc giữa các module.
 
 ## API và phát hành
 
@@ -56,11 +56,11 @@ Kiểm tra prodRelease hiện chặn endpoint demo nếu chưa cho phép rõ rà
 ## Kiểm tra
 
 ```powershell
-.\gradlew.bat verifyModuleBoundaries :domain:test :data:test :shared:test
+.\gradlew.bat verifyModuleBoundaries :domain:test :data:test :shared:test :composition:testDebugUnitTest
 .\gradlew.bat :app:testDevDebugUnitTest :app:testProdDebugUnitTest :app:assembleDebug
 ```
 
-Xem [testing](docs/testing.md) để biết report và giới hạn kiểm chứng. CI kiểm tra ranh giới module, unit test và cả hai variant debug.
+CI kiểm tra ranh giới module, unit test JVM và Android, cùng cả hai variant debug.
 
 ## License và nguồn gốc
 

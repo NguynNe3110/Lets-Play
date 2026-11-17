@@ -1,5 +1,8 @@
 # Review và kế hoạch ổn định Kotlin Base v1
 
+> **Nguồn hiện hành 16/11/2026:** [Đặc tả và hiện trạng thống nhất](LetsPlay-Spec/UNIFIED-SPEC.md). Trang này giữ lịch sử/baseline; các trạng thái, yêu cầu hoặc số test cũ mâu thuẫn dùng bản thống nhất. Báo cáo backend mới được phân biệt với source Android và mô phỏng prototype.
+
+
 Ngày: 15/11/2026. Revision được review: **53edac7** (`upload file docs`).
 Workspace ban đầu sạch. Phạm vi thay đổi của lượt này: **chỉ tài liệu**, không sửa implementation hoặc test.
 
@@ -225,3 +228,23 @@ Các SDK cloud và backend-specific adapters trong Kotlin hiện vẫn là contr
 - [Kế hoạch REST chi tiết](rest-api-integration-plan.md): ưu tiên Products public; có response envelopes, nested errors/field validation, pagination metadata, 204 và refresh-token rotation dùng một lần.
 - [P9.1 trong kế hoạch tổng thể](base-evolution-plan.md): skeleton/shimmer Compose tùy chọn qua loading slot, giữ nội dung khi refresh/append, hỗ trợ lifecycle, theme và accessibility.
 - Source app chưa có component skeleton/shimmer dùng chung. Lượt này chỉ sửa tài liệu; không đóng R1–R5 hoặc ghi thêm test đã qua.
+
+### Bổ sung ngày 17/11/2026 — Ownership của DI và đối chiếu Flutter initializer
+
+Đã đọc Flutter main → AppInitializer → configs/DI của từng package và Kotlin app/di hiện tại. Flutter app dependency initializer; initializer biết data/domain/shared. Các package dùng chung GetIt.instance, không phải container độc lập.
+
+- [Review và kế hoạch DI theo module](di-modularization-plan.md): phân biệt binding registration, startup bất đồng bộ và ranh giới truy cập implementation.
+- App/di hiện có 5 file, khoảng 514 dòng; AuthModule trộn client/repository/usecase wiring. Đây là vấn đề ownership có thể cải thiện khi base lớn lên, chưa phải bằng chứng hiệu năng kém.
+- Đề xuất :di làm wiring adapter để core JVM không phụ thuộc Hilt, app giữ config/entry points; chưa refactor hoặc chốt thay đổi module.
+- Hilt tổng hợp binding theo graph; không cần port vòng gọi init DI tuần tự. Muốn compiler bảo vệ UI mạnh hơn cần cân nhắc tách presentation/feature module hoặc thêm architecture checks.
+- Chỉ đọc source và viết plan, chưa build/test/runtime trong lượt này. Không thay trạng thái các finding lịch sử.
+
+### Triển khai sau review — :composition (17/11/2026)
+
+Kotlin base dùng module `:composition` để lắp dependency graph. Đã chuyển network/repository/usecase providers và provider tests sang module mới; app giữ config/session binding và entry points chỉ trả domain contracts. Source boundary check bổ sung cho app/UI; không đổi core JVM sang Hilt.
+
+Xem [kết quả, runner và giới hạn](di-modularization-plan.md): debug flavors qua wrapper; release/lint qua Gradle 8.11.1 có sẵn do wrapper 9.4.1 với AGP 8.3.1 lỗi SelfResolvingDependency. Không sửa toolchain hoặc chạy thiết bị/API live.
+
+### Review logging theo môi trường — 17/11/2026
+
+[Kế hoạch logging](environment-logging-review-plan.md): AppModule vẫn luôn cấp ConsoleLogger cho cả dev/prod và debug/release; HTTP logging chưa được gắn. AuthRepositoryImpl log email/name trực tiếp. Đề xuất chỉ bật developer logs ở devDebug, chọn NoOpLogger cho prod và bỏ thông tin cá nhân khỏi mọi log. Một backend URL dùng chung không cản trở việc phân policy; chưa sửa code hoặc kiểm Logcat/build trong lượt này.

@@ -1,10 +1,10 @@
-package com.uzuu.letplay.di
+package com.uzuu.letplay.composition.usecase
 
 import com.uzuu.letplay.domain.repository.TodoRepository
 import com.uzuu.letplay.domain.repository.UserRepository
 import com.uzuu.letplay.domain.usecase.AddTodoUseCase
-import com.uzuu.letplay.domain.usecase.ObserveTodosUseCase
 import com.uzuu.letplay.domain.usecase.GetUsersUseCase
+import com.uzuu.letplay.domain.usecase.ObserveTodosUseCase
 import com.uzuu.letplay.domain.usecase.ToggleTodoUseCase
 import com.uzuu.letplay.shared.dispatcher.DispatcherProvider
 import com.uzuu.letplay.shared.error.ErrorMapper
@@ -16,7 +16,8 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DomainModule {
+object TodoUserUseCaseModule {
+
     @Provides
     fun observeTodos(
         repository: TodoRepository,

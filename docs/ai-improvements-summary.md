@@ -1,5 +1,8 @@
 # Báo cáo tổng hợp toàn bộ các cải tiến kiến trúc Kotlin MVVM Base
 
+> **Nguồn hiện hành 16/11/2026:** [Đặc tả và hiện trạng thống nhất](LetsPlay-Spec/UNIFIED-SPEC.md). Trang này giữ lịch sử/baseline; các trạng thái, yêu cầu hoặc số test cũ mâu thuẫn dùng bản thống nhất. Báo cáo backend mới được phân biệt với source Android và mô phỏng prototype.
+
+
 > **Dành cho App Developer / Product Engineer:** Tài liệu này tóm tắt toàn bộ những gì AI và các phiên làm việc trong quá khứ đã xây dựng và cải tiến trong dự án. Bản tóm tắt được viết dưới góc nhìn luồng ứng dụng (**App Flow**), giải thích: *Vấn đề trước đây là gì? AI đã giải quyết thế nào? Trong code đang có những class nào? Và khi bạn làm tính năng mới thì sử dụng ra sao?*
 
 ---

@@ -1,4 +1,9 @@
-package com.uzuu.letplay.di
+package com.uzuu.letplay.composition
+
+import com.uzuu.letplay.composition.product.ProductNetworkModule
+import com.uzuu.letplay.composition.product.PracticeRetrofit
+import com.uzuu.letplay.composition.repository.ProductRepositoryModule
+import com.uzuu.letplay.composition.usecase.ProductUseCaseModule
 
 import com.uzuu.letplay.data.api.practice.PracticeDataErrorMapper
 import com.uzuu.letplay.data.api.practice.PracticeProductApi
@@ -18,7 +23,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
-class ProductModuleTest {
+class ProductCompositionTest {
 
     private val gson = Gson()
     private val httpClient = OkHttpClient()
@@ -29,8 +34,8 @@ class ProductModuleTest {
     @Test
     fun testModuleAndQualifierAnnotations() {
         assertTrue(
-            ProductModule::class.java.isAnnotationPresent(Module::class.java),
-            "ProductModule must be annotated with @Module"
+            ProductNetworkModule::class.java.isAnnotationPresent(Module::class.java),
+            "ProductNetworkModule must be annotated with @Module"
         )
 
         assertTrue(
@@ -41,13 +46,13 @@ class ProductModuleTest {
 
     @Test
     fun testPracticeApiBaseUrlConstant() {
-        assertEquals("https://templetezuu.netlify.app/api/v1/", ProductModule.PRACTICE_API_BASE_URL)
-        assertTrue(ProductModule.PRACTICE_API_BASE_URL.endsWith("/"))
+        assertEquals("https://templetezuu.netlify.app/api/v1/", ProductNetworkModule.PRACTICE_API_BASE_URL)
+        assertTrue(ProductNetworkModule.PRACTICE_API_BASE_URL.endsWith("/"))
     }
 
     @Test
     fun testProvidePracticeRetrofitConfiguredWithCorrectUrlAndConverter() {
-        val retrofit = ProductModule.providePracticeRetrofit(httpClient, gson)
+        val retrofit = ProductNetworkModule.providePracticeRetrofit(httpClient, gson)
 
         assertNotNull(retrofit)
         assertEquals("https://templetezuu.netlify.app/api/v1/", retrofit.baseUrl().toString())
@@ -58,48 +63,48 @@ class ProductModuleTest {
 
     @Test
     fun testProvidePracticeProductApi() {
-        val retrofit = ProductModule.providePracticeRetrofit(httpClient, gson)
-        val api = ProductModule.providePracticeProductApi(retrofit)
+        val retrofit = ProductNetworkModule.providePracticeRetrofit(httpClient, gson)
+        val api = ProductNetworkModule.providePracticeProductApi(retrofit)
 
         assertNotNull(api)
     }
 
     @Test
     fun testProvidePracticeDataErrorMapper() {
-        val mapper = ProductModule.providePracticeDataErrorMapper(gson)
+        val mapper = ProductNetworkModule.providePracticeDataErrorMapper(gson)
 
         assertNotNull(mapper)
     }
 
     @Test
     fun testProvideProductRepositoryAndImpl() {
-        val retrofit = ProductModule.providePracticeRetrofit(httpClient, gson)
-        val api = ProductModule.providePracticeProductApi(retrofit)
-        val errorMapper = ProductModule.providePracticeDataErrorMapper(gson)
+        val retrofit = ProductNetworkModule.providePracticeRetrofit(httpClient, gson)
+        val api = ProductNetworkModule.providePracticeProductApi(retrofit)
+        val errorMapper = ProductNetworkModule.providePracticeDataErrorMapper(gson)
 
-        val repoImpl = ProductModule.provideProductRepositoryImpl(api, errorMapper, logger)
+        val repoImpl = ProductRepositoryModule.provideProductRepositoryImpl(api, errorMapper, logger)
         assertNotNull(repoImpl)
 
-        val repo: ProductRepository = ProductModule.provideProductRepository(repoImpl)
+        val repo: ProductRepository = ProductRepositoryModule.provideProductRepository(repoImpl)
         assertNotNull(repo)
         assertSame(repoImpl, repo, "provideProductRepository should return the same instance as ProductRepositoryImpl")
     }
 
     @Test
     fun testProvideProductUseCases() {
-        val retrofit = ProductModule.providePracticeRetrofit(httpClient, gson)
-        val api = ProductModule.providePracticeProductApi(retrofit)
-        val practiceErrorMapper = ProductModule.providePracticeDataErrorMapper(gson)
-        val repoImpl = ProductModule.provideProductRepositoryImpl(api, practiceErrorMapper, logger)
-        val repo: ProductRepository = ProductModule.provideProductRepository(repoImpl)
+        val retrofit = ProductNetworkModule.providePracticeRetrofit(httpClient, gson)
+        val api = ProductNetworkModule.providePracticeProductApi(retrofit)
+        val practiceErrorMapper = ProductNetworkModule.providePracticeDataErrorMapper(gson)
+        val repoImpl = ProductRepositoryModule.provideProductRepositoryImpl(api, practiceErrorMapper, logger)
+        val repo: ProductRepository = ProductRepositoryModule.provideProductRepository(repoImpl)
 
-        val getProductsUseCase = ProductModule.provideGetProductsUseCase(repo, dispatchers, logger, errorMapper)
+        val getProductsUseCase = ProductUseCaseModule.provideGetProductsUseCase(repo, dispatchers, logger, errorMapper)
         assertNotNull(getProductsUseCase)
 
-        val getProductDetailUseCase = ProductModule.provideGetProductDetailUseCase(repo, dispatchers, logger, errorMapper)
+        val getProductDetailUseCase = ProductUseCaseModule.provideGetProductDetailUseCase(repo, dispatchers, logger, errorMapper)
         assertNotNull(getProductDetailUseCase)
 
-        val getCategoriesUseCase = ProductModule.provideGetCategoriesUseCase(repo, dispatchers, logger, errorMapper)
+        val getCategoriesUseCase = ProductUseCaseModule.provideGetCategoriesUseCase(repo, dispatchers, logger, errorMapper)
         assertNotNull(getCategoriesUseCase)
     }
 }

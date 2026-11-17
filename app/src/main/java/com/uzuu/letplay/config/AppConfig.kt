@@ -80,6 +80,7 @@ data class AppConfig(
             return normalizeUrl(defaultUrl)
         }
 
+        // Hàm này biến cấu hình được sinh thành object Kotlin mà app sử dụng.
         fun fromBuildConfig(): AppConfig {
             val normalizedUrl = normalizeUrl(BuildConfig.API_BASE_URL)
             return AppConfig(
